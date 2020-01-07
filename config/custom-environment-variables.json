@@ -1,0 +1,7 @@
+{
+    "appConfig": {
+        "host": "HOST",
+        "port": "PORT"
+    },
+    "dbConfig": {}
+}

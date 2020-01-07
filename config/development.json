@@ -1,0 +1,29 @@
+{
+    "goodConfig": {
+        "ops": {
+            "interval": 1000
+        },
+        "reporters": {
+            "console": [
+                {
+                    "module": "@hapi/good-squeeze",
+                    "name": "Squeeze",
+                    "args": [
+                        {
+                            "log": "*",
+                            "response": {
+                                "exclude": [
+                                    "no-logging"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "module": "@hapi/good-console"
+                },
+                "stdout"
+            ]
+        }
+    }
+}

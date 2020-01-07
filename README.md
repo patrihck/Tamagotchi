@@ -1,3 +1,3 @@
 # Tamagotchi
 
-Tamagotchi project for internal shool group
+Tamagotchi project for internal shool group.

@@ -1,0 +1,24 @@
+const config = require('config');
+
+const Hapi = require('@hapi/hapi');
+
+const plugins = require('./plugins');
+const routes = require('./routes');
+
+module.exports = async () => {
+  const server = new Hapi.Server({
+    host: config.appConfig.host,
+    port: config.appConfig.port
+  });
+
+  await server.register(plugins);
+
+  server.route(routes);
+
+  try {
+    await server.start();
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
