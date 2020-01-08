@@ -1,2 +1,6 @@
 {
+  "dbConfig": {
+    "host": "172.17.0.3",
+    "user": "postgres"
+  }
 }
