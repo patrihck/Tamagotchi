@@ -18,7 +18,7 @@ function waitForService {
   return $rc
 }
 
-readonly connection=${POSTGRES:-postgres://postgres@${POSTGRES_HOST:-postgres}:5432/tamagotchi}
+readonly connection=${POSTGRES:-postgres://postgres@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-tamagotchi}}
 readonly psql="psql --quiet -v ON_ERROR_STOP=1"
 
 function preparePGCommonScripts {
