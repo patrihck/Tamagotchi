@@ -23,8 +23,8 @@ node {
         }
 
         stage('Build && Test && Cleanup') {
-            sh 'make test';
-            sh 'make stop';
+            sh "make test TAG=${env.BRANCH_NAME}";
+            sh "make stop";
         }
 
         if (isDeploymentBranch(env.BRANCH_NAME)) {
