@@ -23,9 +23,6 @@ services:
       - postgres
     environment:
       PORT: 3001
-    volumes:
-      - ./test:/usr/src/app/test
-      - ./config:/usr/src/app/config
 
   postgres:
     image: postgres:latest
