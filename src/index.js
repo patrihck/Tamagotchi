@@ -21,12 +21,6 @@ module.exports = async () => {
   try {
     await server.start();
     await client.connect();
-
-    client.query('SELECT * FROM users', (err, res) => {
-      if (err) throw err;
-      console.log(res.rows);
-      client.end();
-    });
   } catch (err) {
     console.error(err);
     process.exit(1);

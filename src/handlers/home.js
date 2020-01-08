@@ -1,1 +1,1 @@
-module.exports = () => 'I am the home route test';
+module.exports = () => 'I am the home route 123';
