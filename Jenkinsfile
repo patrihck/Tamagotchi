@@ -23,7 +23,7 @@ node {
         }
 
         stage('Build && Test && Cleanup') {
-            sh "make test TAG=${env.BRANCH_NAME}";
+            sh "make test TAG=${env.BUILD_ID}";
             sh "make stop";
         }
 
