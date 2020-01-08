@@ -19,7 +19,7 @@ COPY ./docker-entrypoint.sh /
 COPY package*.json ./
 
 # Install all npm dependencies
-RUN npm install --quiet --production --no-progress --registry=${registry:-https://registry.npmjs.org} && npm cache clean --force
+RUN npm install --quiet --no-progress --registry=${registry:-https://registry.npmjs.org} && npm cache clean --force
 
 # Copy entire app over
 ADD . /usr/src/app
