@@ -10,7 +10,7 @@ node {
     def containerName = "tamagotchi_${env.BRANCH_NAME}"
     def imageName = "tamagotchi-server:${env.BRANCH_NAME}"
 
-    def postgresHost = "172.17.0.4"
+    def postgresHost = "172.17.0.3"
     def postgresPort = 5433
     def postgresDB = "tamagotchi_master"
     def postgresUser = "postgres"
