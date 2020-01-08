@@ -4,7 +4,7 @@ def isDeploymentBranch(branch) {
   branch =~ /^master|develop_[0-9]$/
 }
 
-def PORT = 3001;
+def PORT = 3005;
 
 node {
     def containerName = "tamagotchi_${env.BRANCH_NAME}"
