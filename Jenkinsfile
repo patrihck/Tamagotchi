@@ -22,10 +22,9 @@ node {
             checkout scm
         }
 
-        stage('Build && Test') {
-            docker.build("tamagotchi-server:${env.BUILD_ID}", "--build-arg port=${PORT} .").inside {
-                sh 'make build test'
-            }
+        stage('Build && Test && Cleanup') {
+            sh 'make test';
+            sh 'make stop';
         }
 
         if (isDeploymentBranch(env.BRANCH_NAME)) {

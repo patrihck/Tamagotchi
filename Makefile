@@ -25,7 +25,7 @@ start: build
 stop:
 	$(DOCKER_COMPOSE) down --volumes --remove-orphans
 
-test: ## test application
+test: start ## test application
 	$(DOCKER_COMPOSE) run -e NODE_ENV=test --rm --entrypoint "/bin/bash -c" web_test "npm test"
 
 .PHONY: $(MODULES_TARGETS) node_modules
