@@ -1,7 +1,7 @@
 #!groovy
 
 def isDeploymentBranch(branch) {
-  branch =~ /^master|develop-[0-9]$/
+  branch =~ /^master|develop_[0-9]$/
 }
 
 def PORT = 3001;
@@ -9,6 +9,7 @@ def PORT = 3001;
 node {
     def containerName = "tamagotchi_${env.BRANCH_NAME}"
     def imageName = "tamagotchi-server:${env.BRANCH_NAME}"
+    def postgresHost = "172.17.0.3"
 
     currentBuild.result = "SUCCESS"
 
@@ -36,7 +37,7 @@ node {
                     sh "docker rm ${containerName}"
                 }
 
-                sh "docker run --network bridge -e NODE_ENV=production -e PORT=${PORT} -e POSTGRES_DB=\"tamagotchi_${env.BRANCH_NAME}\" --name ${containerName} -p ${PORT}:${PORT} -d ${imageName}"
+                sh "docker run --network bridge -e NODE_ENV=production -e PORT=${PORT} -e POSTGRES_HOST=${postgresHost} -e POSTGRES_DB=\"tamagotchi_${env.BRANCH_NAME}\" --name ${containerName} -p ${PORT}:${PORT} -d ${imageName}"
             }
         }
 
