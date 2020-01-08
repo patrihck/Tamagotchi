@@ -10,6 +10,10 @@ node {
     def containerName = "tamagotchi_${env.BRANCH_NAME}"
     def imageName = "tamagotchi-server:${env.BRANCH_NAME}"
 
+    def postgresHost = "172.17.0.4"
+    def postgresDB = "tamagotchi_master"
+    def postgresUser = "postgres"
+
     currentBuild.result = "SUCCESS"
 
     try {
@@ -37,7 +41,7 @@ node {
                     sh "docker rm ${containerName}"
                 }
 
-                sh "docker run -e PORT=${PORT} --name ${containerName} -p ${PORT}:${PORT} -d ${imageName}"
+                sh "docker run --network bridge -e NODE_ENV=production -e PORT=${PORT} -e POSTGRES_HOST=${postgresHost} -e POSTGRES_DB=${postgresDB} -e POSTGRES_USER=${postgresDB} --name ${containerName} -p ${PORT}:${PORT} -d ${imageName}"
             }
         }
 

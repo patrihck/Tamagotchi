@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "config": "^3.2.4",
     "good": "^8.1.2",
     "hapi-swagger": "^11.1.0",
+    "pg": "^7.17.0",
     "swagger-ui-dist": "^3.24.3"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.2"
   }
 }

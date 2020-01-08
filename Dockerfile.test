@@ -24,8 +24,6 @@ RUN npm install --quiet --production --no-progress --registry=${registry:-https:
 # Copy entire app over
 ADD . /usr/src/app
 
-RUN rm -rf test
-
 EXPOSE $port
 VOLUME ["/usr/src/app/log"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
