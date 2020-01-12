@@ -29,4 +29,7 @@ test: stop ## test application
 	$(DOCKER_COMPOSE) run --user="root" --rm web_test -- ./initdb.sh
 	$(DOCKER_COMPOSE) run -e NODE_ENV=test --rm --entrypoint "/bin/bash -c" web_test "npm test"
 
+test-dev:
+	$(DOCKER_COMPOSE) run -e NODE_ENV=test --rm --entrypoint "/bin/bash -c" web "npm test"
+
 .PHONY: $(MODULES_TARGETS) node_modules

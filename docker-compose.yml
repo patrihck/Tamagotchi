@@ -12,6 +12,7 @@ services:
     volumes:
       - ./src:/usr/src/app/src
       - ./config:/usr/src/app/config
+      - ./test:/usr/src/app/test
 
   web_test:
     build:
@@ -23,6 +24,8 @@ services:
       - postgres
     environment:
       PORT: 3001
+    volumes:
+      - ./test:/usr/src/app/test
 
   postgres:
     image: postgres:latest
