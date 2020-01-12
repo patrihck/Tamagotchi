@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   web:
+    user: ${UID}
     build: ./
     ports:
       - "3001:3001"
@@ -15,6 +16,7 @@ services:
       - ./test:/usr/src/app/test
 
   web_test:
+    user: ${UID}
     build:
       context: ./
       dockerfile: Dockerfile.test
