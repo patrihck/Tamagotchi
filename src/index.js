@@ -8,7 +8,7 @@ const routes = require('./routes');
 const { Client } = require('pg');
 const client = new Client(config.dbConfig);
 
-module.exports = async () => {
+const init = async () => {
   const server = new Hapi.Server({
     host: config.appConfig.host,
     port: config.appConfig.port
@@ -26,3 +26,5 @@ module.exports = async () => {
     process.exit(1);
   }
 };
+
+init();

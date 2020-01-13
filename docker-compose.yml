@@ -1,42 +1,24 @@
 version: "3.7"
 services:
   web:
-    user: ${UID}
-    build: ./
-    ports:
-      - "3001:3001"
-    depends_on:
-      - postgres
-    environment:
-      PORT: 3001
-    command: -- ./node_modules/.bin/nodemon --watch src --ignore test/ index.js
-    volumes:
-      - ./src:/usr/src/app/src
-      - ./config:/usr/src/app/config
-      - ./test:/usr/src/app/test
-
-  web_test:
-    user: ${UID}
     build:
       context: ./
-      dockerfile: Dockerfile.test
+      dockerfile: Dockerfile.dev
     ports:
       - "3001:3001"
     depends_on:
       - postgres
     environment:
       PORT: 3001
+    command: -- ./node_modules/.bin/nodemon --watch ./ --ignore test/ index.js
     volumes:
-      - ./test:/usr/src/app/test
+      - ./src:/usr/src/app
 
   postgres:
     image: postgres:latest
     restart: always
     ports:
       - "5432:5432"
-
-volumes:
-  pgdata:
 
 networks:
   default:

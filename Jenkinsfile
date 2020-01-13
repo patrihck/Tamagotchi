@@ -19,7 +19,7 @@ node {
             checkout scm
         }
 
-        stage('Build && Test && Cleanup') {
+        stage('Test') {
             sh "make test TAG=${env.BUILD_ID}";
             sh "make stop";
         }
