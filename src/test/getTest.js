@@ -6,7 +6,7 @@ const init = require('../server.js');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 
-init();
+init.startServer();
 
 describe('GET', () => {
   describe('/GET', () => {
@@ -16,7 +16,7 @@ describe('GET', () => {
         .get('/')
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res).to.be.a.json;
+          expect(res).to.be.a.json();
           done();
           console.log(err);
         });

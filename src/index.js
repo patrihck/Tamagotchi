@@ -1,3 +1,3 @@
 const init = require('./server');
 
-init();
+init.startServer();

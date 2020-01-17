@@ -27,4 +27,5 @@ const init = async () => {
   }
 };
 
-module.exports = init;
+exports.startServer = init;
+exports.client = client;
