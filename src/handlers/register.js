@@ -16,5 +16,6 @@ module.exports = async (req, h) => {
 
   console.log(hashedPassword);
   console.log(query);
+
   return await db.query(query);
 };
