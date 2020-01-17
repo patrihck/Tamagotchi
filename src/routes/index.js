@@ -20,5 +20,15 @@ module.exports = [
       notes: 'Returns json',
       tags: ['api', 'test']
     }
+  },
+  {
+    method: 'POST',
+    path: '/login',
+    options: {
+      handler: handlers.example,
+      description: 'Example route',
+      notes: 'Returns json',
+      tags: ['api', 'test']
+    }
   }
 ];
