@@ -20,5 +20,23 @@ module.exports = [
       notes: 'Returns json',
       tags: ['api', 'test']
     }
+  },
+  {
+    method: 'POST',
+    path: '/login',
+    options: {
+      handler: handlers.login,
+      description: 'Login route',
+      tags: ['api, login']
+    }
+  },
+  {
+    method: 'POST',
+    path: '/register',
+    options: {
+      handler: handlers.register,
+      description: 'Register route',
+      tags: ['api, register']
+    }
   }
 ];
