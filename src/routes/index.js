@@ -12,25 +12,6 @@ module.exports = [
     }
   },
   {
-    method: 'GET',
-    path: '/example',
-    options: {
-      handler: handlers.example,
-      description: 'Example route',
-      notes: 'Returns json',
-      tags: ['api', 'test']
-    }
-  },
-  {
-    method: 'POST',
-    path: '/login',
-    options: {
-      handler: handlers.login,
-      description: 'Login route',
-      tags: ['api, login']
-    }
-  },
-  {
     method: 'POST',
     path: '/register',
     options: {
