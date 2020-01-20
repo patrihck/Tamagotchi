@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs');
-const db = require('../database/postgres/db-connection');
+const bcrypt = require("bcryptjs");
+const db = require("../database/postgres/db-context");
 
 module.exports = async (req, h) => {
   const name = req.payload.name;
