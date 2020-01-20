@@ -12,13 +12,12 @@ module.exports = [
     }
   },
   {
-    method: 'GET',
-    path: '/example',
+    method: 'POST',
+    path: '/register',
     options: {
-      handler: handlers.example,
-      description: 'Example route',
-      notes: 'Returns json',
-      tags: ['api', 'test']
+      handler: handlers.register,
+      description: 'Register route',
+      tags: ['api, register']
     }
   },
   {

@@ -2,11 +2,11 @@
 // const chaiHttp = require('chai-http');
 // const expect = chai.expect;
 
-// const init = require('../index.js');
-// chai.use(chaiHttp);
-// chai.use(require('chai-json'));
+const init = require('../server.js');
+chai.use(chaiHttp);
+chai.use(require('chai-json'));
 
-// init();
+init.startServer();
 
 // describe('GET', () => {
 //   describe('/GET', () => {
