@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
-const db = require("../database/postgres/db-context");
+const bcrypt = require('bcryptjs');
+const db = require('../database/postgres/db-context');
 
 module.exports = async (req, h) => {
   const name = req.payload.name;
@@ -13,9 +13,6 @@ module.exports = async (req, h) => {
     "', '" +
     hashedPassword +
     "')";
-
-  console.log(hashedPassword);
-  console.log(query);
 
   const response = await db.query(query);
   return response;
