@@ -23,10 +23,12 @@
     "blipp": "^4.0.1",
     "chai-json": "^1.0.0",
     "config": "^3.2.4",
+    "dotenv": "^8.2.0",
     "escape-string-regexp": "^2.0.0",
     "good": "^8.1.2",
     "hapi-swagger": "^11.1.0",
     "he": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.17.0",
     "swagger-ui-dist": "^3.24.3"
   },

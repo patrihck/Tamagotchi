@@ -2,7 +2,7 @@ GET http://localhost:3001/
 
 ###
 
-POST http://localhost:3001/register
+POST http://localhost:3001/login
 Content-Type: application/json
 
 {
