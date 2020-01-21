@@ -10,9 +10,16 @@ module.exports = async (req, h) => {
     password: req.payload.password
   };
 
-  console.log('User authentication is: ');
-  console.log(auth.authenticateUser(user));
+  const authenticationSuccess = await auth.authenticateUser(user);
 
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-  return accessToken;
+  if (!authenticationSuccess) {
+    h.response(500);
+  }
+
+  try {
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    return accessToken;
+  } catch (err) {
+    console.log(err);
+  }
 };

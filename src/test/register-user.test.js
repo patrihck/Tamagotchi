@@ -20,6 +20,7 @@ describe('Register user', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           done();
+          console.log(err);
         });
     });
   });

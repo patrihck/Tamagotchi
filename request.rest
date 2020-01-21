@@ -6,6 +6,18 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
+  "email": "patryk@gmail.com",
+  "firstname": "Patłyk",
+  "password": "d"
+}
+
+###
+
+POST http://localhost:3001/register
+Content-Type: application/json
+
+{
+  "email": "patryk@gmail.com",
   "name": "Patłyk",
   "password": "password"
 }

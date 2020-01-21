@@ -24,7 +24,7 @@ module.exports = [
     method: 'POST',
     path: '/login',
     options: {
-      handler: handlers.example,
+      handler: handlers.login,
       description: 'Example route',
       notes: 'Returns json',
       tags: ['api', 'test']
