@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
 module.exports = async (req, h) => {
-  const name = req.payload.name;
   const password = req.payload.password;
 
   const salt = await bcrypt.genSaltSync();
