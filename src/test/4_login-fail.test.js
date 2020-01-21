@@ -5,7 +5,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 
-describe('Register user', () => {
+describe('Login user', () => {
   describe('/POST', () => {
     it('Authentication should fail because of wrong password', done => {
       chai
