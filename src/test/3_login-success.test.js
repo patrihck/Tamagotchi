@@ -2,21 +2,23 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 
-const init = require('../server.js');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 
-init.startServer();
-
-describe('GET', () => {
-  describe('/GET', () => {
-    it('it should GET a simple json', done => {
+describe('Login user', () => {
+  describe('/POST', () => {
+    it('it should authenticate a user which is in DB', done => {
       chai
         .request('http://127.0.0.1:3001')
-        .get('/')
+        .post('/login')
+        .send({
+          email: 'email@email.com',
+          lastname: 'Koń',
+          firstname: 'Zdzisław',
+          password: 'OpOn@11!'
+        })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res).to.be.a.json();
           done();
           console.log(err);
         });

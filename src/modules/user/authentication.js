@@ -19,5 +19,6 @@ exports.authenticateUser = async user => {
     }
   } catch (err) {
     console.log(err);
+    return false;
   }
 };
