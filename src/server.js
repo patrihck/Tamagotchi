@@ -6,6 +6,7 @@ const routes = require('./routes');
 const { Client } = require('pg');
 const client = new Client(config.dbConfig);
 const HapiAuthCookie = require('hapi-auth-cookie');
+const authorization = require('./modules/user/authorization');
 
 const init = async () => {
   const server = new Hapi.Server({
@@ -22,7 +23,8 @@ const init = async () => {
       name: 'restricted',
       password: '!wsYhFA*C2U6nz=Bu^%A@^F#SF3&kSR6',
       isSecure: false
-    }
+    },
+    validateFunc: authorization.authorizeUser
   });
 
   server.route(routes);

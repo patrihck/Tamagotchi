@@ -1,5 +1,4 @@
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
 const auth = require('../modules/user/authentication');
 const { Boom } = require('@hapi/boom');
 
@@ -17,10 +16,8 @@ module.exports = async (req, h) => {
     return new Boom('Unknown user', { statusCode: 501 });
   }
 
-  try {
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-    return accessToken;
-  } catch (err) {
-    console.log(err);
-  }
+  const email = user.email;
+
+  req.cookieAuth.set({ email });
+  return 'elo';
 };

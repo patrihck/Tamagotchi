@@ -21,7 +21,7 @@ stop:
 	$(DOCKER_COMPOSE) down --volumes --remove-orphans
 
 test: stop ## test application
-	$(DOCKER_COMPOSE) run --user="root" --rm web -- ./initdb.sh
+	$(DOCKER_COMPOSE) run --user="root" --rm web -- ./initdb.test.sh
 	$(DOCKER_COMPOSE) run -e NODE_ENV=test --rm --entrypoint "/bin/bash -c" web "npm test"
 
 test-dev:
