@@ -1,12 +1,11 @@
+require('dotenv').config();
 const config = require('config');
-
 const Hapi = require('@hapi/hapi');
-
 const plugins = require('./plugins');
 const routes = require('./routes');
-
 const { Client } = require('pg');
 const client = new Client(config.dbConfig);
+const HapiAuthCookie = require('hapi-auth-cookie');
 
 const init = async () => {
   const server = new Hapi.Server({
@@ -15,6 +14,16 @@ const init = async () => {
   });
 
   await server.register(plugins);
+
+  await server.register(HapiAuthCookie);
+
+  server.auth.strategy('restricted', 'cookie', {
+    cookie: {
+      name: 'restricted',
+      password: '!wsYhFA*C2U6nz=Bu^%A@^F#SF3&kSR6',
+      isSecure: false
+    }
+  });
 
   server.route(routes);
 

@@ -29,5 +29,18 @@ module.exports = [
       notes: 'Returns json',
       tags: ['api', 'test']
     }
+  },
+  {
+    method: 'GET',
+    path: '/users',
+    options: {
+      handler: handlers.getUsers,
+      description: 'Example route',
+      notes: 'Returns json',
+      tags: ['api', 'test'],
+      auth: {
+        strategy: 'restricted'
+      }
+    }
   }
 ];
