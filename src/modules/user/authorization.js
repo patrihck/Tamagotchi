@@ -5,6 +5,5 @@ exports.authorizeUser = async (req, cookie) => {
     cookie.email
   ]);
   const user = queryResult.rows;
-  console.log(cookie);
   return { valid: user !== undefined, credentials: user };
 };

@@ -6,9 +6,10 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-  "email": "mackowiakadam@gmail.com",
-  "name": "Adam",
-  "password": "kopytk"
+  "email": "email@email.com",
+  "firstname": "Zdziław",
+  "lastname": "Koń",
+  "password": "@11!"
 }
 
 ###
@@ -17,9 +18,10 @@ POST http://localhost:3001/register
 Content-Type: application/json
 
 {
-  "email": "mackowiakadam@gmail.com",
-  "name": "Adam",
-  "password": "kopytko"
+  "email": "email@email.com",
+  "firstname": "Zdziław",
+  "lastname": "Koń",
+  "password": "@11!"
 }
 
 ###

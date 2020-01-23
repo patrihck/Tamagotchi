@@ -18,7 +18,7 @@ describe('Login user', () => {
           password: 'OpOn@11!'
         })
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200);          
           done();
           console.log(err);
         });
