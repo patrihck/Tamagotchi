@@ -6,8 +6,8 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-  "email": "email@email.com",
-  "firstname": "Zdziław",
+  "email": "MŁPAA@email.com",
+  "firstname": "Marek",
   "lastname": "Koń",
   "password": "@11!"
 }
@@ -18,8 +18,8 @@ POST http://localhost:3001/register
 Content-Type: application/json
 
 {
-  "email": "email@email.com",
-  "firstname": "Zdziław",
+  "email": "MŁPAA@email.com",
+  "firstname": "Marek",
   "lastname": "Koń",
   "password": "@11!"
 }
@@ -27,3 +27,15 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3001/users
+
+###
+
+PATCH http://localhost:3001/users/:2
+Content-Type:  application/json
+
+{
+  "email": "gladiator@email.com",
+  "firstname": "Krzysztof",
+  "lastname": "Koń",
+  "password": "@11!"
+}

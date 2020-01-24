@@ -18,7 +18,7 @@ describe('Get users', () => {
           password: 'OpOn@11!'
         })
         .then(res => {
-          cookie = res.header['set-cookie'][0].split(';')[0];
+          const cookie = res.header['set-cookie'][0].split(';')[0];
           chai
             .request('http://127.0.0.1:3001')
             .get('/users')

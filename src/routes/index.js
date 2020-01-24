@@ -42,5 +42,12 @@ module.exports = [
         strategy: 'restricted'
       }
     }
+  },
+  {
+    method: 'PATCH',
+    path: '/users/{id}',
+    options: {
+      handler: handlers.editUser
+    }
   }
 ];
