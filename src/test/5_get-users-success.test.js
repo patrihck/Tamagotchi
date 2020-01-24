@@ -29,7 +29,6 @@ describe('Get users', () => {
               console.log(err);
             });
         });
-      done();
     });
   });
 });

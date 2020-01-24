@@ -7,7 +7,7 @@ chai.use(require('chai-json'));
 
 describe('Get users', () => {
   describe('/users', () => {
-    it('User should be authorized to get the list of users', done => {
+    it('User should not be authorized to get the list of users', done => {
       chai
         .request('http://127.0.0.1:3001')
         .post('/login')
@@ -31,7 +31,6 @@ describe('Get users', () => {
               console.log(err);
             });
         });
-      done();
     });
   });
 });

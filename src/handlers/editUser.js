@@ -1,4 +1,5 @@
 const db = require('../database/postgres/db-context');
+const bcrypt = require('bcryptjs');
 
 module.exports = async (req, h) => {
   try {

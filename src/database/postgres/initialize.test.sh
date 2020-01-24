@@ -18,7 +18,7 @@ function waitForService {
   return $rc
 }
 
-readonly connection=${POSTGRES:-postgres://postgres@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-tamagotchiTest}}
+readonly connection=${POSTGRES:-postgres://postgres@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-tamagotchitest}}
 readonly psql="psql --quiet -v ON_ERROR_STOP=1"
 
 function preparePGCommonScripts {
@@ -48,7 +48,7 @@ readonly dbname=${connection##*/}
 
 ensureDatabaseExists ${dbname}
 
-for file in ${directory}/*.sql; do
+for file in ${directory}/*.test.sql; do
   echo "Running ${file}"
   ${psql} ${connection} --file=${file}
 done
