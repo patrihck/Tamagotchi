@@ -49,5 +49,12 @@ module.exports = [
     options: {
       handler: handlers.editUser
     }
+  },
+  {
+    method: 'DELETE',
+    path: '/users/{id}',
+    options: {
+      handler: handlers.deleteUser
+    }
   }
 ];

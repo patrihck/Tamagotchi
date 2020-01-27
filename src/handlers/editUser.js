@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = async (req, h) => {
   try {
-    const userId = req.params['id'].replace(':', '');
+    const userId = req.params.id.replace(':', '');
 
     const user = {
       firstname: req.payload.firstname,

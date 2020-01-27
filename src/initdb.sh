@@ -2,4 +2,4 @@
 
 set -e
 
-./database/postgres/initialize.test.sh
+./database/postgres/initialize.sh

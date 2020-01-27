@@ -25,12 +25,13 @@ describe('Edit user', () => {
           checkIfUserWasEdited(user).then(() => {
             done();
           });
+          console.log(err);
         });
     });
   });
 });
 
-async function checkIfUserWasEdited(user) {
+async function checkIfUserWasEdited (user) {
   const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
   const userResult = queryResult.rows[0];
 
