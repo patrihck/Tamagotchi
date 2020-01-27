@@ -19,7 +19,8 @@ module.exports = [
     options: {
       handler: handlers.register,
       description: 'Register route',
-      tags: ['api, register']
+      tags: ['api, register'],
+      validate: { payload: userSchema }
     }
   },
   {
@@ -29,7 +30,8 @@ module.exports = [
       handler: handlers.login,
       description: 'Example route',
       notes: 'Returns json',
-      tags: ['api', 'test']
+      tags: ['api', 'test'],
+      validate: { payload: userSchema }
     }
   },
   {
