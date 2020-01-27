@@ -1,4 +1,6 @@
 const handlers = require('./../handlers');
+const userIdSchema = require('../joi-schemas/user-id-schema');
+const userSchema = require('../joi-schemas/user-schema');
 
 module.exports = [
   {
@@ -47,14 +49,16 @@ module.exports = [
     method: 'PATCH',
     path: '/users/{id}',
     options: {
-      handler: handlers.editUser
+      handler: handlers.editUser,
+      validate: { params: userIdSchema, payload: userSchema }
     }
   },
   {
     method: 'DELETE',
     path: '/users/{id}',
     options: {
-      handler: handlers.deleteUser
+      handler: handlers.deleteUser,
+      validate: { params: userIdSchema }
     }
   }
 ];

@@ -11,7 +11,7 @@ describe('Delete user', () => {
     it('Existing user should be deleted from db', done => {
       chai
         .request('http://127.0.0.1:3001')
-        .delete('/users/:1')        
+        .delete('/users/:1')
         .end(async (err, res) => {
           expect(res).to.have.status(200);
           checkIfUserWasDeleted().then(() => {
@@ -24,7 +24,7 @@ describe('Delete user', () => {
 });
 
 async function checkIfUserWasDeleted () {
- const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
- const userResult = queryResult.rows;
- expect(userResult).to.eql([]);
+  const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
+  const userResult = queryResult.rows;
+  expect(userResult).to.eql([]);
 }
