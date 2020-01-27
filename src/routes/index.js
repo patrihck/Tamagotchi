@@ -1,6 +1,7 @@
 const handlers = require('./../handlers');
 const userIdSchema = require('../joi-schemas/user-id-schema');
 const userSchema = require('../joi-schemas/user-schema');
+const failHandler = require('../joi-fail-actions/fail-action');
 
 module.exports = [
   {
@@ -20,7 +21,7 @@ module.exports = [
       handler: handlers.register,
       description: 'Register route',
       tags: ['api, register'],
-      validate: { payload: userSchema }
+      validate: { payload: userSchema, failAction: failHandler }
     }
   },
   {
@@ -31,7 +32,7 @@ module.exports = [
       description: 'Example route',
       notes: 'Returns json',
       tags: ['api', 'test'],
-      validate: { payload: userSchema }
+      validate: { payload: userSchema, failAction: failHandler }
     }
   },
   {
@@ -52,7 +53,11 @@ module.exports = [
     path: '/users/{id}',
     options: {
       handler: handlers.editUser,
-      validate: { params: userIdSchema, payload: userSchema }
+      validate: {
+        params: userIdSchema,
+        payload: userSchema,
+        failAction: failHandler
+      }
     }
   },
   {
@@ -60,7 +65,10 @@ module.exports = [
     path: '/users/{id}',
     options: {
       handler: handlers.deleteUser,
-      validate: { params: userIdSchema }
+      validate: {
+        params: userIdSchema,
+        failAction: failHandler
+      }
     }
   }
 ];
