@@ -2,7 +2,7 @@
   "dbConfig": {
     "host": "postgres",
     "port": 5432,
-    "database": "tamagotchitest",
+    "database": "tamagotchi",
     "user": "postgres"
   },
   "goodConfig": {
