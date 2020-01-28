@@ -5,6 +5,12 @@ module.exports = async (req, h) => {
   try {
     const userId = req.params.id;
 
+    const existingUsers = await db.findById(userId);
+
+    if (existingUsers.length === 0) {
+      return h.response({ error: 'unknown userId' }).code(500);
+    }
+
     const user = {
       firstname: req.payload.firstname,
       lastname: req.payload.lastname,
@@ -30,6 +36,6 @@ module.exports = async (req, h) => {
 
     return h.response({ status: '200' }).code(200);
   } catch (err) {
-    console.log(err);
+    return h.response().code(500);
   }
 };
