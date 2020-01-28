@@ -8,3 +8,8 @@ exports.query = async (queryString, params) => {
     console.log(err);
   }
 };
+
+exports.findByEmail = async email => {
+  const selectQuery = 'SELECT * FROM users WHERE email = $1';
+  return (await init.client.query(selectQuery, [email])).rows;
+};
