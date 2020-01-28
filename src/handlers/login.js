@@ -11,7 +11,6 @@ module.exports = async (req, h) => {
   };
 
   const authenticationSuccess = await auth.authenticateUser(user);
-  console.log('Authentication : ', authenticationSuccess);
   if (!authenticationSuccess) {
     return new Boom.unauthorized('Unknown email or password');
   }

@@ -12,10 +12,8 @@ exports.authenticateUser = async user => {
     }
 
     if (await bcrypt.compare(user.password, existingUser.password)) {
-      console.log('Password is correct.');
       return true;
     } else {
-      console.log('Password is incorrect !');
       return false;
     }
   } catch (err) {
