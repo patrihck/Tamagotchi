@@ -23,6 +23,6 @@ module.exports = async (req, h) => {
     ];
 
     const response = await db.query(query, values);
-    return h.response(response).code(201);
+    return h.response(response).code(200);
   }
 };
