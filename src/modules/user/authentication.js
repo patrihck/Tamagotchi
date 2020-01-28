@@ -4,9 +4,12 @@ const bcrypt = require('bcryptjs');
 exports.authenticateUser = async user => {
   try {
     const email = user.email;
-    const queryString = 'SELECT * FROM users WHERE email = $1';
-    const queryResult = await db.query(queryString, [email]);
-    const existingUser = queryResult.rows[0];
+    const queryResult = await db.findByEmail(email);
+    const existingUsers = queryResult.rows;
+
+    if (!existingUsers) {
+      return false;
+    }
 
     if (await bcrypt.compare(user.password, existingUser.password)) {
       console.log('Password is correct.');

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const auth = require('../modules/user/authentication');
-const { Boom } = require('@hapi/boom');
+const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   const user = {
@@ -13,7 +13,7 @@ module.exports = async (req, h) => {
   const authenticationSuccess = await auth.authenticateUser(user);
   console.log('Authentication : ', authenticationSuccess);
   if (!authenticationSuccess) {
-    return new Boom('Unknown user', { statusCode: 501 });
+    return new Boom.unauthorized('Unknown email or password');
   }
 
   const email = user.email;
