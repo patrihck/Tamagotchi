@@ -28,7 +28,7 @@ module.exports = async (req, h) => {
 
     await db.query(queryString, values);
 
-    return 'SUCCESS';
+    return h.response({ status: '200' }).code(200);
   } catch (err) {
     console.log(err);
   }

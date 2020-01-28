@@ -19,5 +19,5 @@ module.exports = async (req, h) => {
   const email = user.email;
 
   req.cookieAuth.set({ email });
-  return 'elo';
+  return h.response({ status: '200' }).code(200);
 };
