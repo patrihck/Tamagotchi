@@ -4,10 +4,9 @@ const bcrypt = require('bcryptjs');
 exports.authenticateUser = async user => {
   try {
     const email = user.email;
-    const queryResult = await db.findByEmail(email);
-    const existingUsers = queryResult.rows;
+    const existingUser = (await db.findByEmail(email))[0];
 
-    if (!existingUsers) {
+    if (!existingUser) {
       return false;
     }
 
