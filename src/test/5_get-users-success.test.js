@@ -21,7 +21,7 @@ describe('Get users', () => {
           firstname: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
-        done,
+        null,
         (err, res) => {
           const cookie = res.header['set-cookie'][0].split(';')[0];
           chaiMethods.makeGetRequest(

@@ -11,7 +11,9 @@ exports.makePostRequest = (url, endpoint, data, done, callback) => {
     .end((err, res) => {
       callback(err, res);
       console.log(err);
-      done();
+      if (done !== null) {
+        done();
+      }
     });
 };
 
@@ -30,6 +32,8 @@ exports.makeGetRequest = (
     .end((err, res) => {
       callback(err, res);
       console.log(err);
-      done();
+      if (done !== null) {
+        done();
+      }
     });
 };
