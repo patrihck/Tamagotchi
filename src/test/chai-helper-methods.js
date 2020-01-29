@@ -14,3 +14,22 @@ exports.makePostRequest = (url, endpoint, data, done, callback) => {
       done();
     });
 };
+
+exports.makeGetRequest = (
+  url,
+  endpoint,
+  headerName,
+  headerValue,
+  done,
+  callback
+) => {
+  chai
+    .request(url)
+    .get(endpoint)
+    .set(headerName, headerValue)
+    .end((err, res) => {
+      callback(err, res);
+      console.log(err);
+      done();
+    });
+};
