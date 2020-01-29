@@ -37,3 +37,17 @@ exports.makeGetRequest = (
       }
     });
 };
+
+exports.makePatchRequest = (url, endpoint, data, done, callback) => {
+  chai
+    .request(url)
+    .patch(endpoint)
+    .send(data)
+    .end((err, res) => {
+      callback(err, res);
+      console.log(err);
+      if (done !== null) {
+        done();
+      }
+    });
+};

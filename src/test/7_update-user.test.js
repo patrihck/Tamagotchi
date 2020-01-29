@@ -1,11 +1,15 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
+const config = require('config');
+const chaiMethods = require('./chai-helper-methods');
+chai.use(chaiHttp);
+chai.use(require('chai-json'));
 const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
 
-chai.use(chaiHttp);
-chai.use(require('chai-json'));
+const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
+const endpoint = '/users/1';
 
 describe('Edit user', () => {
   describe('/PATCH', () => {
@@ -16,22 +20,21 @@ describe('Edit user', () => {
         firstname: 'Edited',
         password: 'ihavejustbeenedited'
       };
-      chai
-        .request('http://127.0.0.1:3001')
-        .patch('/users/:1')
-        .send(user)
-        .end(async (err, res) => {
+      chaiMethods.makePatchRequest(
+        url,
+        endpoint,
+        user,
+        done,
+        async (err, res) => {
           expect(res).to.have.status(200);
-          checkIfUserWasEdited(user).then(() => {
-            done();
-          });
-          console.log(err);
-        });
+          await checkIfUserWasEdited(user);
+        }
+      );
     });
   });
 });
 
-async function checkIfUserWasEdited (user) {
+async function checkIfUserWasEdited(user) {
   const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
   const userResult = queryResult.rows[0];
 
