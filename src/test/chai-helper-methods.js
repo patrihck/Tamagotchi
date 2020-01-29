@@ -51,3 +51,16 @@ exports.makePatchRequest = (url, endpoint, data, done, callback) => {
       }
     });
 };
+
+exports.makeDeleteRequest = (url, endpoint, done, callback) => {
+  chai
+    .request(url)
+    .delete(endpoint)
+    .end((err, res) => {
+      callback(err, res);
+      console.log(err);
+      if (done !== null) {
+        done();
+      }
+    });
+};
