@@ -1,17 +1,23 @@
 {
-    "extends": "standard",
-    "rules": {
-        "semi":["error", "always"],
-        "camelcase":"off",
-        "comma-dangle":"off",
-        "indent":["error", 2],
-        "prefer-const": ["error", {
-            "destructuring": "any",
-            "ignoreReadBeforeAssign": false
-        }]
-    },
-    "env": {
-        "node": true,
-        "mocha": true
-    }
+  "extends": "standard",
+  "rules": {
+    "semi": ["error", "always"],
+    "camelcase": "off",
+    "comma-dangle": "off",
+    "indent": ["error", 2],
+    "new-cap": "off",
+    "handle-callback-err": "off",
+    "no-unused-expressions": "off",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ]
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  }
 }
