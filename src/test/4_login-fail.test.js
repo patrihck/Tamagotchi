@@ -1,27 +1,31 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-
+const config = require('config');
+const chaiMethods = require('./chai-helper-methods');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
+
+const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
+const endpoint = '/login';
 
 describe('Login user', () => {
   describe('/POST', () => {
     it('Authentication should fail because of wrong password', done => {
-      chai
-        .request('http://127.0.0.1:3001')
-        .post('/login')
-        .send({
+      chaiMethods.makePostRequest(
+        url,
+        endpoint,
+        {
           email: 'email@email.com',
           lastname: 'Koń',
           firstname: 'Zdzisław',
-          password: '@11!'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(501);
-          done();
-          console.log(err);
-        });
+          password: '@11!15616979879'
+        },
+        done,
+        (err, res) => {
+          expect(res).to.have.status(401);
+        }
+      );
     });
   });
 });
