@@ -8,6 +8,7 @@
     "new-cap": "off",
     "handle-callback-err": "off",
     "no-unused-expressions": "off",
+    "space-before-function-paren": "off",
     "prefer-const": [
       "error",
       {
