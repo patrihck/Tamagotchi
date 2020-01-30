@@ -4,7 +4,7 @@ module.exports = async (req, h) => {
   const userId = req.params.id;
 
   try {
-    await db.query('DELETE FROM users WHERE id = $1', [userId]);
+    await db.query('UPDATE users SET isdeleted = true WHERE id = $1', [userId]);
   } catch (err) {
     console.log(err);
   }

@@ -36,7 +36,7 @@ describe('Edit user', () => {
 
 describe('Edit user', () => {
   describe('/PATCH', () => {
-    it('Patch request should fail because of wrong email', done => {
+    it('Patch request should fail because of wrong id', done => {
       getUnknownUserId().then(unknownUserId => {
         const user = {
           email: 'unknownemail@email.com',
@@ -72,7 +72,6 @@ async function checkIfUserWasEdited(user) {
 async function getUnknownUserId() {
   while (true) {
     const randomId = Math.floor(Math.random() * 100000);
-    console.log(randomId, 'RAAAAAAAAAAAAAAAAAAAANNNNNNNNNNNNNDOM ID');
     const userResult = await db.findById(randomId);
     if (!userResult.length) {
       return randomId;

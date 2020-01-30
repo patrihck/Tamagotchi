@@ -22,7 +22,6 @@ describe('Delete user', () => {
 });
 
 async function checkIfUserWasDeleted() {
-  const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
-  const userResult = queryResult.rows;
-  expect(userResult).to.eql([]);
+  const usersResult = await db.findById(1);
+  expect(usersResult[0].isdeleted).to.eql(true);
 }
