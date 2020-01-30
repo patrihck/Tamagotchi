@@ -17,7 +17,7 @@ describe('Register user', () => {
         endpoint,
         {
           email: 'email@email.com',
-          lastname: 'Koń',
+          lastName: 'Koń',
           firstname: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
@@ -38,7 +38,7 @@ describe('Register user', () => {
         endpoint,
         {
           email: null,
-          lastname: 'Koń',
+          lastName: 'Koń',
           firstname: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
@@ -59,7 +59,7 @@ describe('Register user', () => {
         endpoint,
         {
           email: 'kameleon@email.com',
-          lastname: 'Góra',
+          lastName: 'Góra',
           firstname: 'Jan',
           password: '123'
         },
@@ -80,7 +80,7 @@ describe('Register user', () => {
         endpoint,
         {
           email: 'kameleon@email.com',
-          lastname: 'Góra',
+          lastName: 'Góra',
           firstname: 'Jan',
           password: undefined
         },

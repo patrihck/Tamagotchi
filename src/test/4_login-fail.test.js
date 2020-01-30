@@ -17,7 +17,7 @@ describe('Login user', () => {
         endpoint,
         {
           email: 'email@email.com',
-          lastname: 'Koń',
+          lastName: 'Koń',
           firstname: 'Zdzisław',
           password: '@11!15616979879'
         },

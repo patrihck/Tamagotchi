@@ -6,7 +6,7 @@ module.exports = async (req, h) => {
   const user = {
     email: req.payload.email,
     firstname: req.payload.firstname,
-    lastname: req.payload.lastname,
+    lastName: req.payload.lastName,
     password: req.payload.password
   };
 

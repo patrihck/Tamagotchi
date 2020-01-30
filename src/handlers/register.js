@@ -14,11 +14,11 @@ module.exports = async (req, h) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const query =
-      'INSERT INTO users (firstname, password, lastname, email) values ($1, $2, $3, $4)';
+      'INSERT INTO users (firstname, password, lastName, email) values ($1, $2, $3, $4)';
     const values = [
       req.payload.firstname,
       hashedPassword,
-      req.payload.lastname,
+      req.payload.lastName,
       req.payload.email
     ];
 

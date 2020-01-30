@@ -16,7 +16,7 @@ describe('Edit user', () => {
     it('Existing user should be updated with new data', done => {
       const user = {
         email: 'editeduser@email.com',
-        lastname: 'User',
+        lastName: 'User',
         firstname: 'Edited',
         password: 'ihavejustbeenedited'
       };
@@ -39,7 +39,7 @@ async function checkIfUserWasEdited(user) {
   const userResult = queryResult.rows[0];
 
   expect(user.email).to.equal(userResult.email);
-  expect(user.lastname).to.equal(userResult.lastname);
+  expect(user.lastName).to.equal(userResult.lastName);
   expect(user.firstname).to.equal(userResult.firstname);
   expect(true).to.equal(
     await bcrypt.compare(user.password, userResult.password)

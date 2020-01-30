@@ -13,7 +13,7 @@ module.exports = async (req, h) => {
 
     const user = {
       firstname: req.payload.firstname,
-      lastname: req.payload.lastname,
+      lastName: req.payload.lastName,
       email: req.payload.email,
       password: req.payload.password
     };
@@ -22,11 +22,11 @@ module.exports = async (req, h) => {
     const hashedPassword = await bcrypt.hash(user.password, salt);
 
     const queryString =
-      'UPDATE users SET firstname = $1, lastname = $2, email = $3, password = $4 WHERE id = $5';
+      'UPDATE users SET firstname = $1, lastName = $2, email = $3, password = $4 WHERE id = $5';
 
     const values = [
       user.firstname,
-      user.lastname,
+      user.lastName,
       user.email,
       hashedPassword,
       userId
