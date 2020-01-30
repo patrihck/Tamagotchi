@@ -1,5 +1,6 @@
 const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
+const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   try {
@@ -7,8 +8,8 @@ module.exports = async (req, h) => {
 
     const existingUsers = await db.findById(userId);
 
-    if (existingUsers.length === 0) {
-      return h.response({ error: 'unknown userId' }).code(500);
+    if (!existingUsers.length) {
+      return Boom.conflict('unknown user');
     }
 
     const user = {
