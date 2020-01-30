@@ -34,6 +34,30 @@ describe('Edit user', () => {
   });
 });
 
+describe('Edit user', () => {
+  describe('/PATCH', () => {
+    it('Patch request should fail because of wrong email', done => {
+      getUnknownUserId().then(unknownUserId => {
+        const user = {
+          email: 'unknownemail@email.com',
+          lastName: 'User',
+          firstName: 'Edited',
+          password: 'ihavejustbeenedited'
+        };
+        chaiMethods.makePatchRequest(
+          url,
+          endpoint.replace('1', unknownUserId),
+          user,
+          done,
+          (err, res) => {
+            expect(res).to.have.status(409);
+          }
+        );
+      });
+    });
+  });
+});
+
 async function checkIfUserWasEdited(user) {
   const userResult = (await db.findById(1))[0];
 
@@ -43,4 +67,15 @@ async function checkIfUserWasEdited(user) {
   expect(true).to.equal(
     await bcrypt.compare(user.password, userResult.password)
   );
+}
+
+async function getUnknownUserId() {
+  while (true) {
+    const randomId = Math.floor(Math.random() * 100000);
+    console.log(randomId, 'RAAAAAAAAAAAAAAAAAAAANNNNNNNNNNNNNDOM ID');
+    const userResult = await db.findById(randomId);
+    if (!userResult.length) {
+      return randomId;
+    }
+  }
 }
