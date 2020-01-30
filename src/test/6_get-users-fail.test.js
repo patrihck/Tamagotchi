@@ -23,7 +23,6 @@ describe('Get users', () => {
         },
         null,
         (err, res) => {
-          const cookie = res.header['set-cookie'][0].split(';')[0];
           chaiMethods.makeGetRequest(
             url,
             endpoint,
