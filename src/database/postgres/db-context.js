@@ -1,8 +1,8 @@
 const init = require('../../server');
 
-exports.query = async (queryString, params) => {
+exports.query = async (queryString, params, req) => {
   try {
-    const response = await init.client.query(queryString, params, req);
+    const response = await init.client.query(queryString, params);
     return response;
   } catch (err) {
     req.log(['database', 'query', 'error'], err);
