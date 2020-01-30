@@ -18,7 +18,7 @@ describe('Get users', () => {
         {
           email: 'email@email.com',
           lastName: 'Koń',
-          firstname: 'Zdzisław',
+          firstName: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
         null,

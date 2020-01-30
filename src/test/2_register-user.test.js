@@ -18,7 +18,7 @@ describe('Register user', () => {
         {
           email: 'email@email.com',
           lastName: 'Koń',
-          firstname: 'Zdzisław',
+          firstName: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
         done,
@@ -39,7 +39,7 @@ describe('Register user', () => {
         {
           email: null,
           lastName: 'Koń',
-          firstname: 'Zdzisław',
+          firstName: 'Zdzisław',
           password: 'OpOn555555555@11!'
         },
         done,
@@ -60,7 +60,7 @@ describe('Register user', () => {
         {
           email: 'kameleon@email.com',
           lastName: 'Góra',
-          firstname: 'Jan',
+          firstName: 'Jan',
           password: '123'
         },
         done,
@@ -81,7 +81,7 @@ describe('Register user', () => {
         {
           email: 'kameleon@email.com',
           lastName: 'Góra',
-          firstname: 'Jan',
+          firstName: 'Jan',
           password: undefined
         },
         done,

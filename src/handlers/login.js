@@ -5,7 +5,7 @@ const Boom = require('@hapi/boom');
 module.exports = async (req, h) => {
   const user = {
     email: req.payload.email,
-    firstname: req.payload.firstname,
+    firstName: req.payload.firstName,
     lastName: req.payload.lastName,
     password: req.payload.password
   };

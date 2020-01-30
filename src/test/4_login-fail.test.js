@@ -18,7 +18,7 @@ describe('Login user', () => {
         {
           email: 'email@email.com',
           lastName: 'Koń',
-          firstname: 'Zdzisław',
+          firstName: 'Zdzisław',
           password: '@11!15616979879'
         },
         done,

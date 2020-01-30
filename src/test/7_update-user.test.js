@@ -17,7 +17,7 @@ describe('Edit user', () => {
       const user = {
         email: 'editeduser@email.com',
         lastName: 'User',
-        firstname: 'Edited',
+        firstName: 'Edited',
         password: 'ihavejustbeenedited'
       };
       chaiMethods.makePatchRequest(
@@ -40,7 +40,7 @@ async function checkIfUserWasEdited(user) {
 
   expect(user.email).to.equal(userResult.email);
   expect(user.lastName).to.equal(userResult.lastName);
-  expect(user.firstname).to.equal(userResult.firstname);
+  expect(user.firstName).to.equal(userResult.firstName);
   expect(true).to.equal(
     await bcrypt.compare(user.password, userResult.password)
   );
