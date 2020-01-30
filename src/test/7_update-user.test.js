@@ -35,12 +35,11 @@ describe('Edit user', () => {
 });
 
 async function checkIfUserWasEdited(user) {
-  const queryResult = await db.query('SELECT * FROM users WHERE id = 1');
-  const userResult = queryResult.rows[0];
+  const userResult = (await db.findById(1))[0];
 
   expect(user.email).to.equal(userResult.email);
-  expect(user.lastName).to.equal(userResult.lastName);
-  expect(user.firstName).to.equal(userResult.firstName);
+  expect(user.lastName).to.equal(userResult.lastname);
+  expect(user.firstName).to.equal(userResult.firstname);
   expect(true).to.equal(
     await bcrypt.compare(user.password, userResult.password)
   );
