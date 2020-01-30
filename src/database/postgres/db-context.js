@@ -2,10 +2,10 @@ const init = require('../../server');
 
 exports.query = async (queryString, params) => {
   try {
-    const response = await init.client.query(queryString, params);
+    const response = await init.client.query(queryString, params, req);
     return response;
   } catch (err) {
-    console.log(err);
+    req.log(['database', 'query', 'error'], err);
   }
 };
 

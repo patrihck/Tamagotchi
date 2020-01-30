@@ -29,6 +29,10 @@ const init = async () => {
 
   server.route(routes);
 
+  server.events.on('request', (event, tags) => {
+    console.log(tags);
+  });
+
   try {
     await server.start();
     await client.connect();

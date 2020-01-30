@@ -5,6 +5,10 @@ module.exports = async (req, h) => {
   const existingUsers = await db.findByEmail(req.payload.email);
 
   if (existingUsers.length > 0) {
+    req.log(
+      ['user', 'already', 'exists', 'error'],
+      'User with this email already exists'
+    );
     return h
       .response({ error: 'User with this email already exists' })
       .code(501);
@@ -12,7 +16,6 @@ module.exports = async (req, h) => {
   const password = req.payload.password;
   const salt = await bcrypt.genSaltSync();
   const hashedPassword = await bcrypt.hash(password, salt);
-
   const query =
     'INSERT INTO users (firstName, password, lastName, email) values ($1, $2, $3, $4)';
   const values = [
@@ -22,6 +25,6 @@ module.exports = async (req, h) => {
     req.payload.email
   ];
 
-  const response = await db.query(query, values);
+  const response = await db.query(query, values, req);
   return h.response(response).code(200);
 };

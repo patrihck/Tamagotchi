@@ -33,10 +33,11 @@ module.exports = async (req, h) => {
       userId
     ];
 
-    await db.query(queryString, values);
+    await db.query(queryString, values, req);
 
     return h.response({ status: '200' }).code(200);
   } catch (err) {
+    req.log(['update user', 'error'], err);
     return h.response().code(500);
   }
 };
