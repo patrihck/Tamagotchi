@@ -1,5 +1,5 @@
 require('dotenv').config();
-const auth = require('../modules/user/authentication');
+const auth = require('../services/user/authentication');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {

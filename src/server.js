@@ -6,7 +6,7 @@ const routes = require('./routes');
 const { Client } = require('pg');
 const client = new Client(config.dbConfig);
 const HapiAuthCookie = require('hapi-auth-cookie');
-const authorization = require('./modules/user/authorization');
+const authorization = require('./services/user/authorization');
 
 const init = async () => {
   const server = new Hapi.Server({
