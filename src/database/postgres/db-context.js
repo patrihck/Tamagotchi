@@ -1,4 +1,5 @@
 const init = require('../../server');
+const userRepository = require('../repository/user-repository');
 
 exports.query = async (queryString, params, req) => {
   try {
@@ -10,11 +11,13 @@ exports.query = async (queryString, params, req) => {
 };
 
 exports.findByEmail = async email => {
-  const selectQuery = 'SELECT * FROM users WHERE email = $1';
-  return (await init.client.query(selectQuery, [email])).rows;
+  return (await init.client.query(userRepository.getUserByEmail, [email])).rows;
 };
 
 exports.findById = async id => {
-  const selectQuery = 'SELECT * FROM users WHERE id = $1';
-  return (await init.client.query(selectQuery, [id])).rows;
+  return (await init.client.query(userRepository.getUserByIdQuery, [id])).rows;
+};
+
+exports.addNewUser = async values => {
+  await init.client.query(userRepository.addUserQuery, values);
 };

@@ -15,8 +15,7 @@ module.exports = async (req, h) => {
   const password = req.payload.password;
   const salt = await bcrypt.genSaltSync();
   const hashedPassword = await bcrypt.hash(password, salt);
-  const query =
-    'INSERT INTO users (firstName, password, lastName, email) values ($1, $2, $3, $4)';
+
   const values = [
     req.payload.firstName,
     hashedPassword,
@@ -24,6 +23,6 @@ module.exports = async (req, h) => {
     req.payload.email
   ];
 
-  const response = await db.query(query, values, req);
-  return h.response(response).code(200);
+  await db.addNewUser(values);
+  return h.response().code(200);
 };
