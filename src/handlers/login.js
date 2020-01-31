@@ -11,5 +11,5 @@ module.exports = async (req, h) => {
   }
 
   req.cookieAuth.set({ email });
-  return h.response({ status: '200' }).code(200);
+  return h.response().code(200);
 };
