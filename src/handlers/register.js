@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
+const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   const existingUsers = await db.findByEmail(req.payload.email);
@@ -9,9 +10,7 @@ module.exports = async (req, h) => {
       ['user', 'already', 'exists', 'error'],
       'User with this email already exists'
     );
-    return h
-      .response({ error: 'User with this email already exists' })
-      .code(501);
+    return new Boom.unauthorized('Unknown email or password');
   }
   const password = req.payload.password;
   const salt = await bcrypt.genSaltSync();
