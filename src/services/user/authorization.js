@@ -7,5 +7,5 @@ exports.authorizeUser = async (req, cookie) => {
     req
   );
   const user = queryResult.rows;
-  return { valid: user !== undefined, credentials: user };
+  return { valid: user.length, credentials: user[0] };
 };
