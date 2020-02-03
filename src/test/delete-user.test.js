@@ -8,7 +8,7 @@ chai.use(require('chai-json'));
 const db = require('../database/postgres/db-context');
 
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
-let userId;
+let userId = undefined;
 
 describe('Delete user', () => {
   describe('/DELETE', () => {
