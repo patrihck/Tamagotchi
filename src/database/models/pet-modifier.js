@@ -6,3 +6,5 @@ class PetModifier {
     this.modifier = modifier;
   }
 }
+
+module.exports = PetModifier;
