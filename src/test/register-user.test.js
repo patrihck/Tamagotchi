@@ -27,11 +27,7 @@ describe('Register user', () => {
         }
       );
     });
-  });
-});
 
-describe('Register user', () => {
-  describe('/POST', () => {
     it('it should result with 406 because of no email', done => {
       chaiMethods.makePostRequest(
         url,
@@ -48,11 +44,7 @@ describe('Register user', () => {
         }
       );
     });
-  });
-});
 
-describe('Register user', () => {
-  describe('/POST', () => {
     it('it should result with 406 because of too short password', done => {
       chaiMethods.makePostRequest(
         url,
@@ -69,11 +61,7 @@ describe('Register user', () => {
         }
       );
     });
-  });
-});
 
-describe('Register user', () => {
-  describe('/POST', () => {
     it('it should result with 406 because of no password', done => {
       chaiMethods.makePostRequest(
         url,

@@ -9,33 +9,45 @@ const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
 
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
-const endpoint = '/users/1';
+let userId = undefined;
 
 describe('Edit user', () => {
   describe('/PATCH', () => {
     it('Existing user should be updated with new data', done => {
-      const user = {
-        email: 'editeduser@email.com',
-        lastName: 'User',
-        firstName: 'Edited',
-        password: 'ihavejustbeenedited'
-      };
-      chaiMethods.makePatchRequest(
+      chaiMethods.makePostRequest(
         url,
-        endpoint,
-        user,
-        done,
+        '/register',
+        {
+          email: 'gerardsmith@email.com',
+          lastName: 'Smith',
+          firstName: 'Gerard',
+          password: 'ihavenotbeenedited'
+        },
+        null,
         async (err, res) => {
-          expect(res).to.have.status(200);
-          await checkIfUserWasEdited(user);
+          userId = (await db.findByEmail('gerardsmith@email.com'))[0].id;
+
+          const editedUser = {
+            email: 'gerardstone@email.com',
+            lastName: 'Stone',
+            firstName: 'Gerard',
+            password: 'ihavejustbeenedited'
+          };
+
+          chaiMethods.makePatchRequest(
+            url,
+            `/users/${userId}`,
+            editedUser,
+            done,
+            async (err, res) => {
+              expect(res).to.have.status(200);
+              await checkIfUserWasEdited(editedUser);
+            }
+          );
         }
       );
     });
-  });
-});
 
-describe('Edit user', () => {
-  describe('/PATCH', () => {
     it('Patch request should fail because of wrong id', done => {
       getUnknownUserId().then(unknownUserId => {
         const user = {
@@ -46,7 +58,7 @@ describe('Edit user', () => {
         };
         chaiMethods.makePatchRequest(
           url,
-          endpoint.replace('1', unknownUserId),
+          `/users/${unknownUserId}`,
           user,
           done,
           (err, res) => {
@@ -59,7 +71,7 @@ describe('Edit user', () => {
 });
 
 async function checkIfUserWasEdited(user) {
-  const userResult = (await db.findById(1))[0];
+  const userResult = (await db.findById(userId))[0];
 
   expect(user.email).to.equal(userResult.email);
   expect(user.lastName).to.equal(userResult.lastname);

@@ -8,15 +8,33 @@ chai.use(require('chai-json'));
 const db = require('../database/postgres/db-context');
 
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
-const endpoint = '/users/1';
 
 describe('Delete user', () => {
   describe('/DELETE', () => {
     it('Existing user should be deleted from db', done => {
-      chaiMethods.makeDeleteRequest(url, endpoint, done, (err, res) => {
-        expect(res).to.have.status(200);
-        checkIfUserWasDeleted();
-      });
+      chaiMethods.makePostRequest(
+        url,
+        '/register',
+        {
+          firstName: 'Jan',
+          lastName: 'Rodzeń',
+          email: 'janrodzen@gmail.com',
+          password: 'kalafior18@1213'
+        },
+        null,
+        async (err, res) => {
+          const userId = (await db.findByEmail('janrodzen@gmail.com'))[0].id;
+          chaiMethods.makeDeleteRequest(
+            url,
+            `/users/${userId}`,
+            done,
+            (err, res) => {
+              expect(res).to.have.status(200);
+              checkIfUserWasDeleted();
+            }
+          );
+        }
+      );
     });
   });
 });
