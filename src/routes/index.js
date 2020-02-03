@@ -40,7 +40,7 @@ module.exports = [
     path: '/users',
     options: {
       handler: handlers.getUsers,
-      description: 'Example route',
+      description: 'Gets list of users',
       notes: 'Returns json',
       tags: ['api', 'test'],
       auth: {
@@ -53,6 +53,7 @@ module.exports = [
     path: '/users/{id}',
     options: {
       handler: handlers.editUser,
+      description: 'Edits user',
       validate: {
         params: userIdSchema,
         payload: userSchema,
@@ -64,10 +65,22 @@ module.exports = [
     method: 'DELETE',
     path: '/users/{id}',
     options: {
+      description: 'Deletes user',
       handler: handlers.deleteUser,
       validate: {
         params: userIdSchema,
         failAction: failHandler
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/petModifiers',
+    options: {
+      description: 'Creates new pet modifier',
+      handler: handlers.addPetModifier,
+      auth: {
+        strategy: 'restricted'
       }
     }
   }

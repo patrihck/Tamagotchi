@@ -9,7 +9,7 @@ const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
 
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
-let userId = undefined;
+let userId;
 
 describe('Edit user', () => {
   describe('/PATCH', () => {

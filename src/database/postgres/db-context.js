@@ -1,5 +1,6 @@
 const init = require('../../server');
 const userRepository = require('../repository/user-repository');
+const petRepository = require('../repository/pet-repository');
 
 exports.query = async (queryString, params, req) => {
   try {
@@ -20,4 +21,8 @@ exports.findById = async id => {
 
 exports.addNewUser = async values => {
   await init.client.query(userRepository.addUserQuery, values);
+};
+
+exports.addNewPetModifier = async values => {
+  await init.client.query(petRepository.addPetModifierQuery, values);
 };

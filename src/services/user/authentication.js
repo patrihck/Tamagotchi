@@ -8,5 +8,6 @@ exports.authenticateUser = async (email, password) => {
     return false;
   }
 
-  return await bcrypt.compare(password, existingUser.password);
+  const valid = await bcrypt.compare(password, existingUser.password);
+  return valid;
 };
