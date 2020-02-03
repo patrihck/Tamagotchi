@@ -8,6 +8,7 @@ chai.use(require('chai-json'));
 const db = require('../database/postgres/db-context');
 
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
+let userId = undefined;
 
 describe('Delete user', () => {
   describe('/DELETE', () => {
@@ -23,7 +24,7 @@ describe('Delete user', () => {
         },
         null,
         async (err, res) => {
-          const userId = (await db.findByEmail('janrodzen@gmail.com'))[0].id;
+          userId = (await db.findByEmail('janrodzen@gmail.com'))[0].id;
           chaiMethods.makeDeleteRequest(
             url,
             `/users/${userId}`,
@@ -40,6 +41,6 @@ describe('Delete user', () => {
 });
 
 async function checkIfUserWasDeleted() {
-  const usersResult = await db.findById(1);
+  const usersResult = await db.findById(userId);
   expect(usersResult[0].isdeleted).to.eql(true);
 }

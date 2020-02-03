@@ -4,9 +4,10 @@ module.exports = async (req, h) => {
   const userId = req.params.id;
 
   try {
+    const deletedAt = new Date();
     await db.query(
-      'UPDATE users SET isdeleted = true WHERE id = $1',
-      [userId],
+      'UPDATE users SET isdeleted = true, deletedat = $1 WHERE id = $2',
+      [deletedAt, userId],
       req
     );
   } catch (err) {
