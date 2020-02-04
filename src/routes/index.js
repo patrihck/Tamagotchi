@@ -2,6 +2,7 @@ const handlers = require('./../handlers');
 const userIdSchema = require('../joi-schemas/user-id-schema');
 const userSchema = require('../joi-schemas/user-schema');
 const failHandler = require('../joi-fail-actions/fail-action');
+const petModifierSchema = require('../joi-schemas/pet-modifier-schema');
 
 module.exports = [
   {
@@ -79,6 +80,10 @@ module.exports = [
     options: {
       description: 'Creates new pet modifier',
       handler: handlers.addPetModifier,
+      validate: {
+        params: petModifierSchema,
+        failAction: failHandler
+      },
       auth: {
         strategy: 'restricted'
       }
