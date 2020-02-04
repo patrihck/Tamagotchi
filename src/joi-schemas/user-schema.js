@@ -1,0 +1,13 @@
+const Joi = require('@hapi/joi');
+
+const schema = Joi.object({
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  email: Joi.string().required(),
+  password: Joi.string()
+    .min(10)
+    .max(20)
+    .required()
+});
+
+module.exports = schema;

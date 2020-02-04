@@ -18,9 +18,7 @@
             {
               "log": "*",
               "response": {
-                "exclude": [
-                  "no-logging"
-                ]
+                "exclude": ["no-logging"]
               }
             }
           ]
