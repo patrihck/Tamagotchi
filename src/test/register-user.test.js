@@ -40,7 +40,7 @@ describe('Register user', () => {
         },
         done,
         (err, res) => {
-          expect(res).to.have.status(406);
+          expect(res).to.have.status(400);
         }
       );
     });
@@ -57,7 +57,7 @@ describe('Register user', () => {
         },
         done,
         (err, res) => {
-          expect(res).to.have.status(406);
+          expect(res).to.have.status(400);
         }
       );
     });
@@ -74,7 +74,7 @@ describe('Register user', () => {
         },
         done,
         (err, res) => {
-          expect(res).to.have.status(406);
+          expect(res).to.have.status(400);
         }
       );
     });

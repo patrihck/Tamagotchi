@@ -80,10 +80,7 @@ module.exports = [
     options: {
       description: 'Creates new pet modifier',
       handler: handlers.addPetModifier,
-      validate: {
-        params: petModifierSchema,
-        failAction: failHandler
-      },
+      validate: { payload: petModifierSchema, failAction: failHandler },
       auth: {
         strategy: 'restricted'
       }

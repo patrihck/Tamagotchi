@@ -25,7 +25,7 @@ describe('Create a pet modifier', () => {
           .send({
             name: 'krowa',
             property: 'mleko',
-            modifier: '100'
+            modifier: 100
           })
           .end((err, res) => {
             expect(res).to.have.status(200);
