@@ -2,7 +2,6 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const config = require('config');
-const db = require('../database/postgres/db-context');
 const chaiMethods = require('./chai-helper-methods');
 chai.use(chaiHttp);
 
@@ -13,6 +12,7 @@ const user = {
   firstName: 'Modifier',
   password: 'createpefmodiFier'
 };
+
 describe('Create a pet modifier', () => {
   it('new pet modifier should be added to database', done => {
     chaiMethods.makePostRequest(url, '/register', user, null, (err, res) => {
@@ -35,7 +35,3 @@ describe('Create a pet modifier', () => {
     });
   });
 });
-
-async function checkIfPetModifierWasAdded() {
-  await db.zk;
-}

@@ -38,7 +38,6 @@ const init = async () => {
     await client.connect();
   } catch (err) {
     console.error(err);
-  } finally {
     await client.end();
     process.exit(1);
   }
