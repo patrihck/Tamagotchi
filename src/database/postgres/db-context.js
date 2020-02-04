@@ -40,3 +40,25 @@ exports.editUser = async (values, req) => {
 exports.deleteUser = async (values, req) => {
   await query(userRepository.deleteUserQuery, values, req);
 };
+
+exports.addPetType = async (petType, req) => {
+  await query(petRepository.addPetTypeQuery, [petType.name], req);
+};
+
+exports.addPetProperty = async (petProperty, req) => {
+  await query(
+    petRepository.addPetPropertyQuery,
+    [
+      petProperty.petTypeId,
+      petProperty.name,
+      petProperty.value,
+      petProperty.weight,
+      petProperty.valuePerTime
+    ],
+    req
+  );
+};
+
+exports.getPetTypeByName = async (name, req) => {
+  return (await query(petRepository.getPetTypeByNameQuery, [name]), req).rows;
+};
