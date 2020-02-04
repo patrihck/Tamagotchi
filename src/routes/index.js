@@ -85,5 +85,17 @@ module.exports = [
         strategy: 'restricted'
       }
     }
+  },
+  {
+    method: 'POST',
+    path: '/petTypes',
+    options: {
+      description: 'Creates a new pet type',
+      handler: handlers.addPetType,
+      validate: { payload: petTypeSchema, failAction: failHandler },
+      auth: {
+        strategy: 'restricted'
+      }
+    }
   }
 ];
