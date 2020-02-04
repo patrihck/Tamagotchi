@@ -1,16 +1,13 @@
 const db = require('../database/postgres/db-context');
 const Boom = require('@hapi/boom');
+const userRepository = require('../database/repository/user-repository');
 
 module.exports = async (req, h) => {
   const userId = req.params.id;
 
   try {
     const deletedAt = new Date();
-    await db.query(
-      'UPDATE users SET isdeleted = true, deletedat = $1 WHERE id = $2',
-      [deletedAt, userId],
-      req
-    );
+    await db.deleteUser([deletedAt, userId]);
   } catch (err) {
     req.log(['delete', 'user', 'error'], err);
     return new Boom.badImplementation(err);

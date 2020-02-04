@@ -3,7 +3,7 @@ const db = require('../database/postgres/db-context');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
-  const existingUsers = await db.findByEmail(req.payload.email);
+  const existingUsers = await db.findByEmail(req.payload.email, req);
 
   if (existingUsers.length > 0) {
     req.log(

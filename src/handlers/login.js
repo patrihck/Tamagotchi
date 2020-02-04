@@ -4,7 +4,11 @@ const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   const { email, password } = req.payload;
-  const authenticationSuccess = await auth.authenticateUser(email, password);
+  const authenticationSuccess = await auth.authenticateUser(
+    email,
+    password,
+    req
+  );
 
   if (!authenticationSuccess) {
     return new Boom.unauthorized('Unknown email or password');

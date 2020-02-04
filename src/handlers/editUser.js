@@ -22,9 +22,6 @@ module.exports = async (req, h) => {
     const salt = await bcrypt.genSaltSync();
     const hashedPassword = await bcrypt.hash(user.password, salt);
 
-    const queryString =
-      'UPDATE users SET firstName = $1, lastName = $2, email = $3, password = $4 WHERE id = $5';
-
     const values = [
       user.firstName,
       user.lastName,
@@ -33,7 +30,7 @@ module.exports = async (req, h) => {
       userId
     ];
 
-    await db.query(queryString, values, req);
+    await db.editUser(values);
 
     return h.response({ status: '200' }).code(200);
   } catch (err) {
