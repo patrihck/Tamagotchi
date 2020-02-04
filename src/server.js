@@ -38,8 +38,9 @@ const init = async () => {
     await client.connect();
   } catch (err) {
     console.error(err);
-    process.exit(1);
   } finally {
+    await client.end();
+    process.exit(1);
   }
 };
 

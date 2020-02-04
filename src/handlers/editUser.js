@@ -38,6 +38,6 @@ module.exports = async (req, h) => {
     return h.response({ status: '200' }).code(200);
   } catch (err) {
     req.log(['update user', 'error'], err);
-    return h.response().code(500);
+    return new Boom.badImplementation(err);
   }
 };
