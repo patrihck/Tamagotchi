@@ -1,5 +1,5 @@
 const Boom = require('@hapi/boom');
 
 module.exports = (req, h, err) => {
-  return Boom.notAcceptable(err);
+  return Boom.badRequest(err);
 };
