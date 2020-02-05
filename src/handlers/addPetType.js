@@ -1,32 +1,42 @@
 const PetType = require('../database/models/pet-type');
-const PetProperty = require('../database/models/pet-type-property');
+const PetProperty = require('../database/models/pet-property');
 const db = require('../database/postgres/db-context');
+const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
-  let properties = [];
+  const properties = [];
+  let incomingProperties = req.payload.properties;
 
-  req.payload.properties.array.forEach(property => {
+  for (let i = 0; i < incomingProperties.length; i++) {
     properties.push(
       new PetProperty(
-        property.name,
-        property.value,
-        property.weight,
-        property.valuePerType
+        null,
+        incomingProperties[i]['name'],
+        incomingProperties[i]['value'],
+        incomingProperties[i]['weight'],
+        incomingProperties[i]['valuePerTime']
       )
     );
-  });
+  }
+  const petType = new PetType(req.payload.name, properties);
+  const petTypes = await db.getPetTypeByName(petType.name);
+  console.log(petTypes.length, 'PET TYPES LENGTH');
+  if (petTypes.length === 0) {
+    await db.addPetType(petType, req);
 
-  const petType = new PetType(req.body.name, properties);
+    const petTypeId = petTypes[0].id;
+    console.log(petTypeId, 'TUTAJ PETTYPEID');
+    // petType.properties.forEach(async property => {
+    //   property.petTypeId = petTypeId;
+    //   await db.addPetProperty(property, req);
+    // });
+  } else if (petTypes.length > 0) {
+    return new Boom.conflict(
+      'Pet type with that name already exists',
+      petType.name
+    );
+  }
+  console.log(ids, 'HEREEEE', !ids);
 
-  await db.addPetType(petType, req);
-
-  const ids = db.getPetTypeByName(petType.name);
-
-if (!ids) {
-  const petTypeId = ids[0];
-  petType.properties.forEach(property => {
-    property.petTypeId = petTypeId;
-    await db.addPetProperty(property, req);
-  })
-}
+  return h.response().code(200);
 };

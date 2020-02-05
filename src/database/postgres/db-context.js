@@ -60,5 +60,5 @@ exports.addPetProperty = async (petProperty, req) => {
 };
 
 exports.getPetTypeByName = async (name, req) => {
-  return (await query(petRepository.getPetTypeByNameQuery, [name]), req).rows;
+  return (await query(petRepository.getPetTypeByNameQuery, [name], req)).rows;
 };
