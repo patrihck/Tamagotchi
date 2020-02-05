@@ -1,5 +1,6 @@
 const db = require('../database/postgres/db-context');
 
 module.exports = async (req, h) => {
-  return await db.getAllUsers(req);
+  const result = await db.getAllUsers(req);
+  return result;
 };
