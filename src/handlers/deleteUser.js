@@ -1,6 +1,5 @@
 const db = require('../database/postgres/db-context');
 const Boom = require('@hapi/boom');
-const userRepository = require('../database/repository/user-repository');
 
 module.exports = async (req, h) => {
   const userId = req.params.id;
