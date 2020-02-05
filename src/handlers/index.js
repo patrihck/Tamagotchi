@@ -5,6 +5,7 @@ const getUsers = require('./getUsersList');
 const editUser = require('./editUser');
 const deleteUser = require('./deleteUser');
 const addPetModifier = require('./addPetModifier');
+const addPetType = require('./addPetType');
 
 module.exports = {
   login,
@@ -13,5 +14,6 @@ module.exports = {
   getUsers,
   editUser,
   deleteUser,
-  addPetModifier
+  addPetModifier,
+  addPetType
 };

@@ -3,6 +3,7 @@ const userIdSchema = require('../joi-schemas/user-id-schema');
 const userSchema = require('../joi-schemas/user-schema');
 const failHandler = require('../joi-fail-actions/fail-action');
 const petModifierSchema = require('../joi-schemas/pet-modifier-schema');
+const petTypeSchema = require('../joi-schemas/pet-type-schema');
 
 module.exports = [
   {
@@ -92,7 +93,7 @@ module.exports = [
     options: {
       description: 'Creates a new pet type',
       handler: handlers.addPetType,
-      validate: { payload: petTypeSchema, failAction: failHandler },
+      //validate: { payload: petTypeSchema, failAction: failHandler },
       auth: {
         strategy: 'restricted'
       }
