@@ -1,11 +1,11 @@
-version: "3.7"
+version: '3.7'
 services:
   web:
     build:
       context: ./
       dockerfile: Dockerfile.dev
     ports:
-      - "3001:3001"
+      - '3001:3001'
     depends_on:
       - postgres
     environment:
@@ -18,7 +18,9 @@ services:
     image: postgres:latest
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
 
 networks:
   default:
