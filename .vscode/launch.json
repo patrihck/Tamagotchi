@@ -7,11 +7,29 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
+      "name": "Mocha Current File",
+      "cwd": "${workspaceFolder}/src",
+      "program": "${workspaceFolder}/src/node_modules/.bin/_mocha",
+
+      "env": {
+        "NODE_ENV": "test",
+        "POSTGRES_HOST": "localhost"
+      },
+      "args": [
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/src/test/**/${fileBasename}",
+        "--exit"
       ],
-      "program": "${workspaceFolder}/src/handlers/register.js"
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Docker: Attach to Node",
+      "remoteRoot": "/usr/src/app"
     }
   ]
 }
