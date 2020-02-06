@@ -7,8 +7,6 @@ const init = require('../server.js');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 
-init.startServer();
-
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
 
 describe('GET', () => {

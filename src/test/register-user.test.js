@@ -1,15 +1,13 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiMethods = require('./chai-helper-methods');
-const testServer = require('./test-server-initialize');
+const testServer = require('./1_test-server-initialize.test');
 const nanoid = require('nanoid');
 const db = require('../database/postgres/db-context');
 const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const endpoint = '/register';
-
-testServer.startServer();
 
 const user = {
   email: 'email@email.com',
