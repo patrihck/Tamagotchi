@@ -10,7 +10,7 @@ module.exports = async (req, h) => {
       ['user', 'already', 'exists', 'error'],
       'User with this email already exists'
     );
-    return new Boom.unauthorized('Unknown email or password');
+    return new Boom.conflict('User already exists');
   }
   const password = req.payload.password;
   const salt = await bcrypt.genSaltSync();
