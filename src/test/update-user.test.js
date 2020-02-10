@@ -9,7 +9,6 @@ const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
 let userId;
-
 const user = {
   email: `${testServer.getRandomId()}gerardsmith@email.com`,
   lastName: 'Smith',
@@ -52,7 +51,7 @@ describe('Edit user', () => {
   });
 
   it('Patch request should fail because of wrong id', done => {
-    getUnknownUserId().then(unknownUserId => {
+    testServer.getUnknownUserId().then(unknownUserId => {
       const user = {
         email: 'unknownemail@email.com',
         lastName: 'User',
@@ -81,14 +80,4 @@ async function checkIfUserWasEdited(user) {
   expect(true).to.equal(
     await bcrypt.compare(user.password, userResult.password)
   );
-}
-
-async function getUnknownUserId() {
-  while (true) {
-    const randomId = Math.floor(Math.random() * 100000);
-    const userResult = await db.findById(randomId);
-    if (!userResult.length) {
-      return randomId;
-    }
-  }
 }
