@@ -1,71 +1,73 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-const config = require('config');
 const chaiMethods = require('./chai-helper-methods');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
-const db = require('../database/postgres/db-context');
+const testServer = require('./1_test-server-initialize.test');
 const bcrypt = require('bcryptjs');
+const db = require('../database/postgres/db-context');
 
-const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
 let userId;
 
+const user = {
+  email: `${testServer.getRandomId()}gerardsmith@email.com`,
+  lastName: 'Smith',
+  firstName: 'Gerard',
+  password: 'ihavenotbeenedited'
+};
+
 describe('Edit user', () => {
-  describe('/PATCH', () => {
-    it('Existing user should be updated with new data', done => {
-      chaiMethods.makePostRequest(
-        url,
-        '/register',
-        {
-          email: 'gerardsmith@email.com',
-          lastName: 'Smith',
-          firstName: 'Gerard',
-          password: 'ihavenotbeenedited'
-        },
-        null,
-        async (err, res) => {
-          userId = (await db.findByEmail('gerardsmith@email.com'))[0].id;
+  before(async () => {
+    user.email = testServer.getRandomId() + user.email;
 
-          const editedUser = {
-            email: 'gerardstone@email.com',
-            lastName: 'Stone',
-            firstName: 'Gerard',
-            password: 'ihavejustbeenedited'
-          };
+    await db.addNewUser([
+      user.firstName,
+      user.password,
+      user.lastName,
+      user.email
+    ]);
 
-          chaiMethods.makePatchRequest(
-            url,
-            `/users/${userId}`,
-            editedUser,
-            done,
-            async (err, res) => {
-              expect(res).to.have.status(200);
-              await checkIfUserWasEdited(editedUser);
-            }
-          );
+    userId = (await db.findByEmail(user.email))[0].id;
+  });
+
+  const editedUser = {
+    email: `${testServer.getRandomId()}editeduser@gmail.com`,
+    lastName: 'Fox',
+    firstName: 'Tom',
+    password: 'fwvnerowbvnoew'
+  };
+
+  it('Existing user should be updated with new data', done => {
+    chaiMethods.makePatchRequest(
+      testServer.url,
+      `/users/${userId}`,
+      editedUser,
+      done,
+      async (err, res) => {
+        expect(res).to.have.status(200);
+        await checkIfUserWasEdited(editedUser);
+      }
+    );
+  });
+
+  it('Patch request should fail because of wrong id', done => {
+    getUnknownUserId().then(unknownUserId => {
+      const user = {
+        email: 'unknownemail@email.com',
+        lastName: 'User',
+        firstName: 'Edited',
+        password: 'ihavejustbeenedited'
+      };
+      chaiMethods.makePatchRequest(
+        testServer.url,
+        `/users/${unknownUserId}`,
+        user,
+        done,
+        (err, res) => {
+          expect(res).to.have.status(409);
         }
       );
-    });
-
-    it('Patch request should fail because of wrong id', done => {
-      getUnknownUserId().then(unknownUserId => {
-        const user = {
-          email: 'unknownemail@email.com',
-          lastName: 'User',
-          firstName: 'Edited',
-          password: 'ihavejustbeenedited'
-        };
-        chaiMethods.makePatchRequest(
-          url,
-          `/users/${unknownUserId}`,
-          user,
-          done,
-          (err, res) => {
-            expect(res).to.have.status(409);
-          }
-        );
-      });
     });
   });
 });
