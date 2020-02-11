@@ -2,8 +2,6 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const config = require('config');
-
-const init = require('../server.js');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 

@@ -4,17 +4,17 @@ chai.use(chaiHttp);
 chai.use(require('chai-json'));
 
 exports.makePostRequest = (url, endpoint, data, done, callback) => {
-  chai
+  return chai
     .request(url)
     .post(endpoint)
-    .send(data)
-    .end((err, res) => {
-      callback(err, res);
-      console.log(err);
-      if (done !== null) {
-        done();
-      }
-    });
+    .send(data);
+  // .end((err, res) => {
+  //   callback(err, res);
+  //   console.log(err);
+  //   if (done !== null) {
+  //     done();
+  //   }
+  // });
 };
 
 exports.makeGetRequest = (

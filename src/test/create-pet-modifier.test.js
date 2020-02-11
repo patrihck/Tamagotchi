@@ -34,86 +34,69 @@ describe('Create a pet modifier', () => {
     ]);
   });
 
-  it('new pet modifier should be added to database', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/login',
-      user,
-      null,
-      (err, res) => {
-        const cookie = res.header['set-cookie'][0].split(';')[0];
-        chai
-          .request(testServer.url)
-          .post('/petModifiers')
-          .set('Cookie', cookie)
-          .send(petModifier)
-          .end(async (err, res) => {
-            expect(res).to.have.status(200);
-            await checkIfPetModifierWasAdded(petModifier.name);
-            done();
-          });
-      }
-    );
+  it('new pet modifier should be added to database', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/login')
+      .send(user);
+
+    const cookie = res.header['set-cookie'][0].split(';')[0];
+    const response = await chai
+      .request(testServer.url)
+      .post('/petModifiers')
+      .set('Cookie', cookie)
+      .send(petModifier);
+
+    expect(res).to.have.status(200);
+    await checkIfPetModifierWasAdded(petModifier.name);
   });
 
-  it('should end with 401 because of no cookie', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/petModifiers',
-      petModifier,
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+  it('should end with 401 because of no cookie', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/petModifiers')
+      .send(petModifier);
+
+    expect(res).to.have.status(401);
   });
 
-  it('should end with 400 because of wrong petModifier name format', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/petModifiers',
-      {
+  it('should end with 400 because of wrong petModifier name format', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/petModifiers')
+      .send({
         name: 1,
         property: 'mleko',
         modifier: 100
-      },
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+      });
+
+    expect(res).to.have.status(401);
   });
 
-  it('should end with 400 because of wrong petModifier property format', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/petModifiers',
-      {
+  it('should end with 400 because of wrong petModifier property format', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/petModifiers')
+      .send({
         name: `petModifierName${testServer.getRandomId()}`,
         property: 1,
         modifier: 100
-      },
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+      });
+
+    expect(res).to.have.status(401);
   });
 
-  it('should end with 400 because of wrong petModifier modifier format', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/petModifiers',
-      {
+  it('should end with 400 because of wrong petModifier modifier format', async () => {
+    chai
+      .request(testServer.url)
+      .post('/petModifiers')
+      .send({
         name: `petModifierName${testServer.getRandomId()}`,
         property: 'mleko',
         modifier: 'yes'
-      },
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+      });
+
+    expect(res).to.have.status(401);
   });
 });
 

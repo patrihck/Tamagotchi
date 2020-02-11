@@ -5,7 +5,6 @@ const chaiMethods = require('./chai-helper-methods');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./1_test-server-initialize.test');
-const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
 const user = {
@@ -57,7 +56,7 @@ describe('Delete User', () => {
   it('should fail because of id equal to 0', done => {
     chaiMethods.makeDeleteRequest(
       testServer.url,
-      `/users/0`,
+      '/users/0',
       done,
       (err, res) => {
         expect(res).to.have.status(400);
@@ -68,7 +67,7 @@ describe('Delete User', () => {
   it('should fail because of non numeric id', done => {
     chaiMethods.makeDeleteRequest(
       testServer.url,
-      `/users/A`,
+      '/users/A',
       done,
       (err, res) => {
         expect(res).to.have.status(400);

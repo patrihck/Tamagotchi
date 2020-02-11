@@ -1,10 +1,15 @@
 const Joi = require('@hapi/joi');
 
-const petTypechema = Joi.object({
+const petTypeSchema = Joi.object({
   name: Joi.string(),
-  value: Joi.number(),
-  weight: Joi.number(),
-  valuePerTime: Joi.number()
+  properties: Joi.array().items(
+    Joi.object({
+      name: Joi.string(),
+      value: Joi.number(),
+      weight: Joi.number(),
+      valuePerTime: Joi.number()
+    })
+  )
 });
 
-module.exports = petTypechema;
+module.exports = petTypeSchema;
