@@ -1,7 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-const chaiMethods = require('./chai-helper-methods');
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./1_test-server-initialize.test');
