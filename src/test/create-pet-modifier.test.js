@@ -46,7 +46,7 @@ describe('Create a pet modifier', () => {
       .set('Cookie', cookie)
       .send(petModifier);
 
-    expect(res).to.have.status(200);
+    expect(response).to.have.status(200);
     await checkIfPetModifierWasAdded(petModifier.name);
   });
 
