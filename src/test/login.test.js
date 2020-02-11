@@ -28,33 +28,27 @@ describe('User login', () => {
       user.email
     ]);
   });
-  it('registered user should be able to login', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/login',
-      user,
-      done,
-      (err, res) => {
-        expect(res).to.have.status(200);
-      }
-    );
+  it('registered user should be able to login', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/login')
+      .send(user);
+
+    expect(res).to.have.status(200);
   });
 
-  it('unknown user should not be able to log in', done => {
+  it('unknown user should not be able to log in', async () => {
     const unknownUserId = testServer.getRandomId();
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/login',
-      {
+    const res = await chai
+      .request(testServer.url)
+      .post('/login')
+      .send({
         email: `${unknownUserId}unknownuser@emailemail.com`,
         lastName: 'Jan',
         firstName: 'Nowak',
         password: '@@@###%^&kj3d'
-      },
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+      });
+
+    expect(res).to.have.status(401);
   });
 });
