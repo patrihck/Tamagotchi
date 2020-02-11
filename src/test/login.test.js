@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-const testServer = require('./1_test-server-initialize.test');
+const testServer = require('./test-server-methods');
 const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
 

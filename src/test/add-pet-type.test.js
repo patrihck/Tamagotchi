@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
-const testServer = require('./1_test-server-initialize.test');
+const testServer = require('./test-server-methods');
 const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
@@ -30,21 +30,8 @@ let cookie;
 
 describe('Add new petType', () => {
   before(async () => {
-    const salt = await bcrypt.genSaltSync();
-    const hashedPassword = await bcrypt.hash(user.password, salt);
-    user.email = user.email + testServer.getRandomId();
-    await db.addNewUser([
-      user.firstName,
-      hashedPassword,
-      user.lastName,
-      user.email
-    ]);
-
-    const res = await chai
-      .request(testServer.url)
-      .post('/login')
-      .send(user);
-    cookie = res.header['set-cookie'][0].split(';')[0];
+    await testServer.registerUser(user);
+    cookie = await testServer.logInAndGetCookie(user);
   });
 
   it('new pet type with pet properties should be added to database', async () => {

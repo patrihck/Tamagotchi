@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
-const testServer = require('./1_test-server-initialize.test');
+const testServer = require('./test-server-methods');
 const db = require('../database/postgres/db-context');
 const bcrypt = require('bcryptjs');
 
@@ -18,8 +18,8 @@ let cookie;
 
 describe('GET /petActions', () => {
   before(async () => {
-    await registerUser(user);
-    await login(user);
+    await testServer.registerUser(user);
+    cookie = await testServer.logInAndGetCookie(user);
   });
   it('should get the list of pet actions', async () => {
     const res = await chai
@@ -35,22 +35,3 @@ describe('GET /petActions', () => {
     expect(res).to.have.status(401);
   });
 });
-
-async function registerUser(user) {
-  const salt = await bcrypt.genSaltSync();
-  const hashedPassword = await bcrypt.hash(user.password, salt);
-  await db.addNewUser([
-    user.firstName,
-    hashedPassword,
-    user.lastName,
-    user.email
-  ]);
-}
-
-async function login(user) {
-  const res = await chai
-    .request(testServer.url)
-    .post('/login')
-    .send(user);
-  cookie = res.header['set-cookie'][0].split(';')[0];
-}

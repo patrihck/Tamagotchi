@@ -3,12 +3,12 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
-const testServer = require('./1_test-server-initialize.test');
+const testServer = require('./test-server-methods');
 const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
 const user = {
-  email: 'createPetModifier@gmail.com',
+  email: `createPetModifier@gmail.com${testServer.getRandomId()}`,
   lastName: 'CreatePet',
   firstName: 'Modifier',
   password: 'createpefmodiFier'
@@ -20,33 +20,22 @@ const petModifier = {
   modifier: 100
 };
 
+let cookie;
+
 describe('Create a pet modifier', () => {
   before(async () => {
-    const salt = await bcrypt.genSaltSync();
-    const hashedPassword = await bcrypt.hash(user.password, salt);
-    user.email = testServer.getRandomId() + user.email;
-    await db.addNewUser([
-      user.firstName,
-      hashedPassword,
-      user.lastName,
-      user.email
-    ]);
+    await testServer.registerUser(user);
+    cookie = await testServer.logInAndGetCookie(user);
   });
 
   it('new pet modifier should be added to database', async () => {
     const res = await chai
       .request(testServer.url)
-      .post('/login')
-      .send(user);
-
-    const cookie = res.header['set-cookie'][0].split(';')[0];
-    const response = await chai
-      .request(testServer.url)
       .post('/petModifiers')
       .set('Cookie', cookie)
       .send(petModifier);
 
-    expect(response).to.have.status(200);
+    expect(res).to.have.status(200);
     await checkIfPetModifierWasAdded(petModifier.name);
   });
 
