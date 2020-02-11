@@ -67,3 +67,7 @@ exports.getPetModifierByName = async (name, req) => {
 exports.getPetTypeByName = async (name, req) => {
   return (await query(petRepository.getPetTypeByNameQuery, [name], req)).rows;
 };
+
+exports.getPetActions = async req => {
+  return (await query(petRepository.getPetActionsQuery, null, req)).rows;
+};

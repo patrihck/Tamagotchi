@@ -10,3 +10,5 @@ exports.getPetModifierByNameQuery =
   'SELECT * FROM petModifiers WHERE name = $1';
 
 exports.getPetTypeByNameQuery = 'SELECT * FROM petTypes WHERE name = $1';
+
+exports.getPetActionsQuery = 'SELECT * FROM petActions';

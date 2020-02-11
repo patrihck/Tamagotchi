@@ -98,5 +98,16 @@ module.exports = [
         strategy: 'restricted'
       }
     }
+  },
+  {
+    method: 'GET',
+    path: '/petActions',
+    options: {
+      description: 'gets a list of all pet actions',
+      handler: handlers.getPetActions,
+      auth: {
+        strategy: 'restricted'
+      }
+    }
   }
 ];
