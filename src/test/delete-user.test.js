@@ -27,52 +27,30 @@ describe('Delete User', () => {
     ]);
 
     userId = (await db.findByEmail(user.email))[0].id;
-    unknownUserId = await testServer.getUnknownUserId();
+    unknownUserId = testServer.getUnknownUserId();
   });
 
-  it('Existing user should be deleted from db', done => {
-    chaiMethods.makeDeleteRequest(
-      testServer.url,
-      `/users/${userId}`,
-      done,
-      async (err, res) => {
-        expect(res).to.have.status(200);
-        await checkIfUserWasDeleted(userId);
-      }
-    );
+  it('Existing user should be deleted from db', async () => {
+    const res = await chai.request(testServer.url).delete(`/users/${userId}`);
+    expect(res).to.have.status(200);
+    await checkIfUserWasDeleted(userId);
   });
 
-  it('should fail because of unknown id', done => {
-    chaiMethods.makeDeleteRequest(
-      testServer.url,
-      `/users/${unknownUserId}`,
-      done,
-      (err, res) => {
-        expect(res).to.have.status(409);
-      }
-    );
+  it('should fail because of unknown id', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .delete(`/users/${unknownUserId}`);
+    expect(res).to.have.status(409);
   });
 
-  it('should fail because of id equal to 0', done => {
-    chaiMethods.makeDeleteRequest(
-      testServer.url,
-      '/users/0',
-      done,
-      (err, res) => {
-        expect(res).to.have.status(400);
-      }
-    );
+  it('should fail because of id equal to 0', async () => {
+    const res = await chai.request(testServer.url).delete('/users/0');
+    expect(res).to.have.status(400);
   });
 
-  it('should fail because of non numeric id', done => {
-    chaiMethods.makeDeleteRequest(
-      testServer.url,
-      '/users/A',
-      done,
-      (err, res) => {
-        expect(res).to.have.status(400);
-      }
-    );
+  it('should fail because of non numeric id', async () => {
+    const res = await chai.request(testServer.url).delete('/users/A');
+    expect(res).to.have.status(400);
   });
 });
 
