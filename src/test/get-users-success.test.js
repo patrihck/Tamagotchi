@@ -27,38 +27,27 @@ describe('Get users', () => {
       user.email
     ]);
   });
-  it('Logged in user should be able to get list of users', done => {
-    chaiMethods.makePostRequest(
-      testServer.url,
-      '/login',
-      user,
-      null,
-      (err, res) => {
-        const cookie = res.header['set-cookie'][0].split(';')[0];
-        chaiMethods.makeGetRequest(
-          testServer.url,
-          '/users',
-          'Cookie',
-          cookie,
-          done,
-          (err, res) => {
-            expect(res).to.have.status(200);
-          }
-        );
-      }
-    );
+  it('Logged in user should be able to get list of users', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .post('/login')
+      .send(user);
+    const cookie = res.header['set-cookie'][0].split(';')[0];
+
+    const getResponse = await chai
+      .request(testServer.url)
+      .get('/users')
+      .set('Cookie', cookie);
+
+    expect(getResponse).to.have.status(200);
   });
 
-  it('should result with unauthorized error', done => {
-    chaiMethods.makeGetRequest(
-      testServer.url,
-      '/users',
-      'Cookie',
-      '',
-      done,
-      (err, res) => {
-        expect(res).to.have.status(401);
-      }
-    );
+  it('should result with unauthorized error', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .get('/users')
+      .set('Cookie', '');
+
+    expect(res).to.have.status(401);
   });
 });
