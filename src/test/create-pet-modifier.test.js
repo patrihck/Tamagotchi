@@ -87,7 +87,7 @@ describe('Create a pet modifier', () => {
   });
 
   it('should end with 400 because of wrong petModifier modifier format', async () => {
-    chai
+    const res = await chai
       .request(testServer.url)
       .post('/petModifiers')
       .send({

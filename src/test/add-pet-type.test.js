@@ -59,7 +59,7 @@ describe('Add new petType', () => {
   });
 
   it('should fail because of no cookie', async () => {
-    const res = await chaiMethods
+    const res = await chai
       .request(testServer.url)
       .post('/petTypes')
       .send(petType);

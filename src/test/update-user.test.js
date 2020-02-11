@@ -37,37 +37,31 @@ describe('Edit user', () => {
     password: 'fwvnerowbvnoew'
   };
 
-  it('Existing user should be updated with new data', done => {
-    chaiMethods.makePatchRequest(
-      testServer.url,
-      `/users/${userId}`,
-      editedUser,
-      done,
-      async (err, res) => {
-        expect(res).to.have.status(200);
-        await checkIfUserWasEdited(editedUser);
-      }
-    );
+  it('Existing user should be updated with new data', async () => {
+    const res = await chai
+      .request(testServer.url)
+      .patch(`/users/${userId}`)
+      .send(editedUser);
+
+    expect(res).to.have.status(200);
+    await checkIfUserWasEdited(editedUser);
   });
 
-  it('Patch request should fail because of wrong id', done => {
-    testServer.getUnknownUserId().then(unknownUserId => {
-      const user = {
-        email: 'unknownemail@email.com',
-        lastName: 'User',
-        firstName: 'Edited',
-        password: 'ihavejustbeenedited'
-      };
-      chaiMethods.makePatchRequest(
-        testServer.url,
-        `/users/${unknownUserId}`,
-        user,
-        done,
-        (err, res) => {
-          expect(res).to.have.status(409);
-        }
-      );
-    });
+  it('Patch request should fail because of wrong id', async () => {
+    const unknownUserId = await testServer.getUnknownUserId();
+    const user = {
+      email: 'unknownemail@email.com',
+      lastName: 'User',
+      firstName: 'Edited',
+      password: 'ihavejustbeenedited'
+    };
+
+    const res = await chai
+      .request(testServer.url)
+      .patch(`/users/${unknownUserId}`)
+      .send(user);
+
+    expect(res).to.have.status(409);
   });
 });
 
