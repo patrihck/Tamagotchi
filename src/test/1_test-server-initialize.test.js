@@ -11,6 +11,8 @@ exports.getRandomId = () => {
   return nanoid();
 };
 
+exports.init = init;
+
 exports.getUnknownUserId = async () => {
   while (true) {
     const randomId = Math.floor(Math.random() * 100000);
