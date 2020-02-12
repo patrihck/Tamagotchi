@@ -7,6 +7,7 @@ async function query(queryString, params, req) {
     const response = await init.client.query(queryString, params);
     return response;
   } catch (err) {
+    console.log(err);
     if (req !== undefined) {
       req.log(['database', 'query', 'error'], err);
     }
@@ -70,4 +71,12 @@ exports.getPetTypeByName = async (name, req) => {
 
 exports.getPetActions = async req => {
   return (await query(petRepository.getPetActionsQuery, null, req)).rows;
+};
+
+exports.addPetAction = async (values, req) => {
+  await query(petRepository.addPetActionQuery, values, req);
+};
+
+exports.addPetModifierToPetAction = async (values, req) => {
+  await query(petRepository.addPetModifierToPetActionQuery, values, req);
 };

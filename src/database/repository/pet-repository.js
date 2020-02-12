@@ -12,3 +12,7 @@ exports.getPetModifierByNameQuery =
 exports.getPetTypeByNameQuery = 'SELECT * FROM petTypes WHERE name = $1';
 
 exports.getPetActionsQuery = 'SELECT * FROM petActions';
+
+exports.addPetActionQuery = 'INSERT INTO petActions (name, petTypeId) values ($1, $2)';
+
+exports.addPetModifierToPetActionQuery = 'UPDATE petActions set petTypeId = $2 WHERE id = $1';
