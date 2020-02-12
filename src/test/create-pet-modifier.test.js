@@ -4,7 +4,6 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./test-server-methods');
-const bcrypt = require('bcryptjs');
 const db = require('../database/postgres/db-context');
 
 const user = {

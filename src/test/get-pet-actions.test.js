@@ -4,8 +4,6 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./test-server-methods');
-const db = require('../database/postgres/db-context');
-const bcrypt = require('bcryptjs');
 
 const user = {
   email: `newUser${testServer.getRandomId()}@gmail.com`,
