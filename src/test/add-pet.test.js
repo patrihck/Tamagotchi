@@ -48,4 +48,42 @@ describe('POST /pets', () => {
     expect(petResult.name).equal(pet.name);
     expect(petResult.userid.toString()).equal(userId);
   });
+
+  it('should result with 400 beacuse of wrong name format', async () => {
+    const wrongPet = {
+      name: 1,
+      petTypeId: 1
+    };
+    const res = await chai
+      .request(testServer.url)
+      .post('/pets')
+      .set('Cookie', cookie)
+      .send(wrongPet);
+    expect(res).to.have.status(400);
+  });
+
+  it('should result with 400 beacuse of wrong petTypeId format', async () => {
+    const wrongPet = {
+      name: 'name',
+      petTypeId: 'petTypeId'
+    };
+    const res = await chai
+      .request(testServer.url)
+      .post('/pets')
+      .set('Cookie', cookie)
+      .send(wrongPet);
+    expect(res).to.have.status(400);
+  });
+
+  it('should result with 400 beacuse of no name in request', async () => {
+    const wrongPet = {
+      petTypeId: 1
+    };
+    const res = await chai
+      .request(testServer.url)
+      .post('/pets')
+      .set('Cookie', cookie)
+      .send(wrongPet);
+    expect(res).to.have.status(400);
+  });
 });

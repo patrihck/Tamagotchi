@@ -5,6 +5,7 @@ const failHandler = require('../joi-fail-actions/fail-action');
 const petModifierSchema = require('../joi-schemas/pet-modifier-schema');
 const petTypeSchema = require('../joi-schemas/pet-type-schema');
 const petActionSchema = require('../joi-schemas/pet-action-schema');
+const petSchema = require('../joi-schemas/pet-schema');
 
 module.exports = [
   {
@@ -128,11 +129,11 @@ module.exports = [
     path: '/pets',
     options: {
       description: 'creates a new pet',
-      handler: handlers.addPet
-      // validate: { payload: petActionSchema, failAction: failHandler },
-      // auth: {
-      //   strategy: 'restricted'
-      // }
+      handler: handlers.addPet,
+      validate: { payload: petSchema, failAction: failHandler },
+      auth: {
+        strategy: 'restricted'
+      }
     }
   }
 ];
