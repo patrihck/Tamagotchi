@@ -14,7 +14,7 @@ const user = {
 
 const petAction = {
   petTypeId: 1,
-  name: 'Nakarm',
+  name: `petAction${testServer.getRandomId()}`,
   petModifierIds: [1]
 };
 
@@ -22,7 +22,8 @@ const petModifier = {
   id: 1,
   name: `name${testServer.getRandomId()}`,
   property: 'property',
-  modifier: 3
+  modifier: 3,
+  petActionId: null
 };
 
 let cookie;
@@ -41,24 +42,39 @@ describe('POST /petActions', () => {
       .set('Cookie', cookie)
       .send(petAction);
     expect(res).to.have.status(200);
-    const petActionResult = await testServer.init.client.query(
-      'SELECT * FROM petModifiers WHERE name = $1',
-      [petModifier.name]
+    const petActionResult = (
+      await testServer.init.client.query(
+        'SELECT * FROM petActions WHERE name = $1',
+        [petAction.name]
+      )
     ).rows[0];
-    expect(petActionResult.petTypeId).equal(petAction.petTypeId);
+
+    const petModifiers = (
+      await testServer.init.client.query(
+        'SELECT * FROM petModifiers WHERE petActionId = $1',
+        [petActionResult.id]
+      )
+    ).rows;
+    expect(petActionResult.pettypeid).equal(petAction.petTypeId);
+    expect(petActionResult.name).equal(petAction.name);
+    expect(petModifiers.length).equal(1);
+    expect(petActionResult.id).to.deep.equal(
+      petModifiers[0].petactionid.toString()
+    );
   });
 });
 
 async function seedDb() {
-  try {
+  const petModifiers = (
     await testServer.init.client.query(
-      'INSERT INTO petModifiers (id, name, property, modifier) values ($1, $2, $3, $4)',
-      [
-        petModifier.id,
-        petModifier.name,
-        petModifier.property,
-        petModifier.modifier
-      ]
+      'SELECT * FROM petModifiers WHERE id = 1'
+    )
+  ).rows;
+
+  if (petModifiers.length === 0) {
+    await testServer.init.client.query(
+      'INSERT INTO petModifiers (id, name, property, modifier, petActionId) values ($1, $2, $3, $4, $5)',
+      [1, petModifier.name, petModifier.property, petModifier.modifier, null]
     );
-  } catch (err) {}
+  }
 }
