@@ -73,6 +73,10 @@ exports.getPetActions = async req => {
   return (await query(petRepository.getPetActionsQuery, null, req)).rows;
 };
 
+exports.getPetActionByName = async (name, req) => {
+  return (await query(petRepository.getPetActionByNameQuery, [name], req)).rows;
+};
+
 exports.addPetAction = async (values, req) => {
   await query(petRepository.addPetActionQuery, values, req);
 };
