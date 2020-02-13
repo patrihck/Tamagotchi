@@ -84,3 +84,11 @@ exports.addPetAction = async (values, req) => {
 exports.addPetModifierToPetAction = async (values, req) => {
   await query(petRepository.addPetModifierToPetActionQuery, values, req);
 };
+
+exports.addPet = async (values, req) => {
+  await query(petRepository.addPetQuery, values, req);
+};
+
+exports.getPetByName = async (name, req) => {
+  return (await query(petRepository.getPetByNameQuery, [name], req)).rows;
+};

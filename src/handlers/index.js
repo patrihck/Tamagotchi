@@ -8,6 +8,7 @@ const addPetModifier = require('./addPetModifier');
 const addPetType = require('./addPetType');
 const getPetActions = require('./getPetActions');
 const addPetAction = require('./addPetAction');
+const addPet = require('./addPet');
 
 module.exports = {
   login,
@@ -19,5 +20,6 @@ module.exports = {
   addPetModifier,
   addPetType,
   getPetActions,
-  addPetAction
+  addPetAction,
+  addPet
 };

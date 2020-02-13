@@ -122,5 +122,17 @@ module.exports = [
         strategy: 'restricted'
       }
     }
+  },
+  {
+    method: 'POST',
+    path: '/pets',
+    options: {
+      description: 'creates a new pet',
+      handler: handlers.addPet
+      // validate: { payload: petActionSchema, failAction: failHandler },
+      // auth: {
+      //   strategy: 'restricted'
+      // }
+    }
   }
 ];
