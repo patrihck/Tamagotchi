@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS petProperties(id bigserial primary key, petTypeId int
 CREATE TABLE IF NOT EXISTS petActions(id bigserial primary key, petTypeId integer, name varchar(128), updatedAt date, CONSTRAINT uc_action_name UNIQUE (name));
 
 CREATE TABLE IF NOT EXISTS pets(id bigserial primary key, petTypeId integer, userId integer, health integer default 100, name varchar(128), CONSTRAINT uc_pet_name UNIQUE (name)); 
+
+INSERT INTO users (email, lastName, firstName, password) SELECT 'crawler@email.com', 'Crawler', 'ElasticSearch', '$2y$10$38AaFqobC9jviHGbBE5N3erJMOsHUmybXMRIBdnsm8/MqaxqrpbA.'
+WHERE NOT EXISTS (SELECT id FROM users WHERE email ='crawler@email.com');
