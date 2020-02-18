@@ -22,7 +22,8 @@ const init = async () => {
     cookie: {
       name: 'restricted',
       password: '!wsYhFA*C2U6nz=Bu^%A@^F#SF3&kSR6',
-      isSecure: false
+      isSecure: false,
+      ttl: 8 * 60 * 60 * 1000
     },
     validateFunc: authorization.authorizeUser
   });
