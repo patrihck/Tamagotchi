@@ -58,7 +58,7 @@ exports.getPetActions = async req => {
 };
 
 exports.getPetActionByName = async (name, req) => {
-  return (await db.query(getPetActionByNameQuery, [name], req)).rows;
+  return (await db.query(getPetActionByNameQuery, [name], req)).rows[0];
 };
 
 exports.addPetAction = async (values, req) => {

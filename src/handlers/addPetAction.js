@@ -13,7 +13,7 @@ module.exports = async (req, h) => {
   try {
     await petRepo.addPetAction([petAction.name, petAction.petTypeId], req);
 
-    const id = (await petRepo.getPetActionByName(petAction.name))[0].id;
+    const id = (await petRepo.getPetActionByName(petAction.name)).id;
 
     petAction.petModifierIds.forEach(async petModifierId => {
       await petRepo.addPetModifierToPetAction([petModifierId, id], req);
