@@ -19,10 +19,9 @@ module.exports = async (req, h) => {
     );
   }
 
-  const newPetType = new PetType(req.payload.name, properties);
-  const petType = await petRepo.getPetTypeByName(newPetType.name, req);
+  try {
+    const newPetType = new PetType(req.payload.name, properties);
 
-  if (petType === undefined) {
     await petRepo.addPetType(newPetType, req);
     const petTypeId = (await petRepo.getPetTypeByName(newPetType.name, req)).id;
 
@@ -30,12 +29,9 @@ module.exports = async (req, h) => {
       property.petTypeId = petTypeId;
       await petRepo.addPetProperty(property, req);
     });
-  } else {
-    return new Boom.conflict(
-      'Pet type with that name already exists',
-      newPetType.name
-    );
-  }
 
-  return h.response().code(200);
+    return h.response().code(200);
+  } catch (err) {
+    return new Boom.conflict();
+  }
 };

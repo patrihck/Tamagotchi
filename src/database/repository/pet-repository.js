@@ -3,7 +3,8 @@ const db = require('../postgres/db-context');
 const addPetModifierQuery =
   'INSERT INTO petModifiers (name, property, modifier) values ($1, $2, $3)';
 
-const addPetTypeQuery = 'INSERT INTO petTypes (name) values ($1)';
+const addPetTypeQuery =
+  'INSERT INTO petTypes (name) SELECT CAST($1 AS VARCHAR) WHERE NOT EXISTS (SELECT id FROM petTypes WHERE name = $1)';
 
 const addPetPropertyQuery =
   'INSERT INTO petProperties (petTypeId, name, value, weight, valuePerTime) values ($1, $2, $3, $4, $5)';
