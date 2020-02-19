@@ -3,9 +3,9 @@ const userRepo = require('../database/repository/user-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
-  const existingUsers = await userRepo.findByEmail(req.payload.email, req);
+  const existingUser = await userRepo.findByEmail(req.payload.email, req);
 
-  if (existingUsers.length > 0) {
+  if (existingUser !== undefined) {
     req.log(
       ['user', 'already', 'exists', 'error'],
       'User with this email already exists'

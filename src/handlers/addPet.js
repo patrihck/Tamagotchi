@@ -8,7 +8,7 @@ module.exports = async (req, h) => {
 
   try {
     const userEmail = req.state.restricted.email;
-    const userId = (await userRepo.findByEmail(userEmail, req))[0].id;
+    const userId = (await userRepo.findByEmail(userEmail, req)).id;
     await petRepo.addPet([userId, pet.petTypeId, pet.name], req);
 
     return h.response().code(200);

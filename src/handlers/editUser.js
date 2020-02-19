@@ -6,9 +6,9 @@ module.exports = async (req, h) => {
   try {
     const userId = req.params.id;
 
-    const existingUsers = await userRepo.findById(userId);
+    const existingUser = await userRepo.findById(userId);
 
-    if (!existingUsers.length) {
+    if (existingUser === undefined) {
       return Boom.conflict('unknown user');
     }
 

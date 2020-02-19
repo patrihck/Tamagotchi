@@ -2,7 +2,7 @@ const userRepo = require('../../database/repository/user-repository');
 const bcrypt = require('bcryptjs');
 
 exports.authenticateUser = async (email, password, req) => {
-  const existingUser = (await userRepo.findByEmail(email, req))[0];
+  const existingUser = await userRepo.findByEmail(email, req);
 
   if (!existingUser) {
     return false;

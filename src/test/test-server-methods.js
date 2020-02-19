@@ -19,7 +19,7 @@ exports.getUnknownUserId = async () => {
   while (true) {
     const randomId = Math.floor(Math.random() * 100000);
     const userResult = await userRepo.findById(randomId);
-    if (!userResult.length) {
+    if (userResult === undefined) {
       return randomId;
     }
   }

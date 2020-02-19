@@ -20,11 +20,11 @@ exports.getAllUsers = async req => {
 };
 
 exports.findByEmail = async (email, req) => {
-  return (await db.query(getUserByEmail, [email], req)).rows;
+  return (await db.query(getUserByEmail, [email], req)).rows[0];
 };
 
 exports.findById = async (id, req) => {
-  return (await db.query(getUserByIdQuery, [id], req)).rows;
+  return (await db.query(getUserByIdQuery, [id], req)).rows[0];
 };
 
 exports.addNewUser = async (values, req) => {

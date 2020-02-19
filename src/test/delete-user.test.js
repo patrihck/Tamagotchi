@@ -25,7 +25,7 @@ describe('Delete User', () => {
       user.email
     ]);
 
-    userId = (await userRepo.findByEmail(user.email))[0].id;
+    userId = (await userRepo.findByEmail(user.email)).id;
     unknownUserId = await testServer.getUnknownUserId();
   });
 
@@ -55,5 +55,5 @@ describe('Delete User', () => {
 
 async function checkIfUserWasDeleted(userId) {
   const usersResult = await userRepo.findById(userId);
-  expect(usersResult.length).to.eql(0);
+  expect(usersResult).to.eql(undefined);
 }

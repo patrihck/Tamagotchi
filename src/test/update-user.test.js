@@ -26,7 +26,7 @@ describe('Edit user', () => {
       user.email
     ]);
 
-    userId = (await userRepo.findByEmail(user.email))[0].id;
+    userId = (await userRepo.findByEmail(user.email)).id;
   });
 
   const editedUser = {
@@ -65,7 +65,7 @@ describe('Edit user', () => {
 });
 
 async function checkIfUserWasEdited(user) {
-  const userResult = (await userRepo.findById(userId))[0];
+  const userResult = await userRepo.findById(userId);
 
   expect(user.email).to.equal(userResult.email);
   expect(user.lastName).to.equal(userResult.lastname);

@@ -5,9 +5,9 @@ module.exports = async (req, h) => {
   const userId = req.params.id;
 
   try {
-    const users = await userRepo.findById(userId);
+    const user = await userRepo.findById(userId);
 
-    if (users.length > 0) {
+    if (user !== undefined) {
       const deletedAt = new Date();
       await userRepo.deleteUser([deletedAt, userId]);
     } else {
