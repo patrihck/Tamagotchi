@@ -25,8 +25,6 @@ const getPetActionByNameQuery = 'SELECT * FROM petActions WHERE name = $1';
 const addPetQuery =
   'INSERT INTO pets (userId, petTypeId, name) values($1, $2, $3)';
 
-const getPetByNameQuery = 'SELECT * FROM pets WHERE name = $1';
-
 exports.addPetType = async (petType, req) => {
   await db.query(addPetTypeQuery, [petType.name], req);
 };
@@ -75,8 +73,4 @@ exports.addPetModifierToPetAction = async (values, req) => {
 
 exports.addPet = async (values, req) => {
   await db.query(addPetQuery, values, req);
-};
-
-exports.getPetByName = async (name, req) => {
-  return (await db.query(getPetByNameQuery, [name], req)).rows;
 };
