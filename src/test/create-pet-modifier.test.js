@@ -88,10 +88,10 @@ describe('Create a pet modifier', () => {
 });
 
 async function checkIfPetModifierWasAdded(name) {
-  const petModifiers = await petRepo.getPetModifierByName(name);
-  if (petModifiers.length > 0) {
-    expect(petModifiers[0].name).to.be.equal(petModifier.name);
-    expect(petModifiers[0].property).to.be.equal(petModifier.property);
-    expect(petModifiers[0].modifier).to.be.equal(petModifier.modifier);
+  const existingPetModifier = await petRepo.getPetModifierByName(name);
+  if (existingPetModifier !== undefined) {
+    expect(existingPetModifier.name).to.be.equal(petModifier.name);
+    expect(existingPetModifier.property).to.be.equal(petModifier.property);
+    expect(existingPetModifier.modifier).to.be.equal(petModifier.modifier);
   }
 }
