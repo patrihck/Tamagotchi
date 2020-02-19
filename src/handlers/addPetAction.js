@@ -1,5 +1,5 @@
 const PetAction = require('../database/models/pet-action');
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
@@ -11,12 +11,12 @@ module.exports = async (req, h) => {
   );
 
   try {
-    await db.addPetAction([petAction.name, petAction.petTypeId], req);
+    await petRepo.addPetAction([petAction.name, petAction.petTypeId], req);
 
-    const id = (await db.getPetActionByName(petAction.name))[0].id;
+    const id = (await petRepo.getPetActionByName(petAction.name))[0].id;
 
     petAction.petModifierIds.forEach(async petModifierId => {
-      await db.addPetModifierToPetAction([petModifierId, id], req);
+      await petRepo.addPetModifierToPetAction([petModifierId, id], req);
     });
 
     return h.response().code(200);

@@ -4,7 +4,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./test-server-methods');
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 
 const user = {
   email: `${testServer.getRandomId()}simpleuser@email.com`,
@@ -18,14 +18,14 @@ let unknownUserId;
 
 describe('Delete User', () => {
   before(async () => {
-    await db.addNewUser([
+    await userRepo.addNewUser([
       user.firstName,
       user.password,
       user.lastName,
       user.email
     ]);
 
-    userId = (await db.findByEmail(user.email))[0].id;
+    userId = (await userRepo.findByEmail(user.email))[0].id;
     unknownUserId = await testServer.getUnknownUserId();
   });
 
@@ -54,6 +54,6 @@ describe('Delete User', () => {
 });
 
 async function checkIfUserWasDeleted(userId) {
-  const usersResult = await db.findById(userId);
+  const usersResult = await userRepo.findById(userId);
   expect(usersResult.length).to.eql(0);
 }

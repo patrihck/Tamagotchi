@@ -2,7 +2,7 @@ const config = require('config');
 const init = require('../server.js');
 const url = `http://${config.appConfig.host}:${config.appConfig.port}`;
 const nanoid = require('nanoid');
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 const chai = require('chai');
 const bcrypt = require('bcryptjs');
 
@@ -18,7 +18,7 @@ exports.init = init;
 exports.getUnknownUserId = async () => {
   while (true) {
     const randomId = Math.floor(Math.random() * 100000);
-    const userResult = await db.findById(randomId);
+    const userResult = await userRepo.findById(randomId);
     if (!userResult.length) {
       return randomId;
     }
@@ -28,7 +28,7 @@ exports.getUnknownUserId = async () => {
 exports.registerUser = async user => {
   const salt = await bcrypt.genSaltSync();
   const hashedPassword = await bcrypt.hash(user.password, salt);
-  await db.addNewUser([
+  await userRepo.addNewUser([
     user.firstName,
     hashedPassword,
     user.lastName,

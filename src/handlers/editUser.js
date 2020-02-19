@@ -1,4 +1,4 @@
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 const bcrypt = require('bcryptjs');
 const Boom = require('@hapi/boom');
 
@@ -6,7 +6,7 @@ module.exports = async (req, h) => {
   try {
     const userId = req.params.id;
 
-    const existingUsers = await db.findById(userId);
+    const existingUsers = await userRepo.findById(userId);
 
     if (!existingUsers.length) {
       return Boom.conflict('unknown user');
@@ -30,7 +30,7 @@ module.exports = async (req, h) => {
       userId
     ];
 
-    await db.editUser(values);
+    await userRepo.editUser(values);
 
     return h.response({ status: '200' }).code(200);
   } catch (err) {

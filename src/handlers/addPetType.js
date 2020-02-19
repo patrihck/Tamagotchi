@@ -1,6 +1,6 @@
 const PetType = require('../database/models/pet-type');
 const PetProperty = require('../database/models/pet-property');
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
@@ -21,15 +21,15 @@ module.exports = async (req, h) => {
 
   console.log('PROPERTIES HERE ', properties);
   const petType = new PetType(req.payload.name, properties);
-  const petTypes = await db.getPetTypeByName(petType.name, req);
+  const petTypes = await petRepo.getPetTypeByName(petType.name, req);
 
   if (petTypes.length === 0) {
-    await db.addPetType(petType, req);
-    const petTypeId = (await db.getPetTypeByName(petType.name, req))[0].id;
+    await petRepo.addPetType(petType, req);
+    const petTypeId = (await petRepo.getPetTypeByName(petType.name, req))[0].id;
 
     petType.properties.forEach(async property => {
       property.petTypeId = petTypeId;
-      await db.addPetProperty(property, req);
+      await petRepo.addPetProperty(property, req);
     });
   } else if (petTypes.length > 0) {
     return new Boom.conflict(

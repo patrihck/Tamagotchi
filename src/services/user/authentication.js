@@ -1,8 +1,8 @@
-const db = require('../../database/postgres/db-context');
+const userRepo = require('../../database/repository/user-repository');
 const bcrypt = require('bcryptjs');
 
 exports.authenticateUser = async (email, password, req) => {
-  const existingUser = (await db.findByEmail(email, req))[0];
+  const existingUser = (await userRepo.findByEmail(email, req))[0];
 
   if (!existingUser) {
     return false;

@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
-  const existingUsers = await db.findByEmail(req.payload.email, req);
+  const existingUsers = await userRepo.findByEmail(req.payload.email, req);
 
   if (existingUsers.length > 0) {
     req.log(
@@ -23,6 +23,6 @@ module.exports = async (req, h) => {
     req.payload.email
   ];
 
-  await db.addNewUser(values);
+  await userRepo.addNewUser(values);
   return h.response().code(200);
 };

@@ -16,29 +16,25 @@ const editUserQuery =
 const deleteUserQuery = 'UPDATE users SET deletedat = $1 WHERE id = $2';
 
 exports.getAllUsers = async req => {
-  return (await db.query(userRepository.getUsers, null, req)).rows;
+  return (await db.query(getUsers, null, req)).rows;
 };
 
 exports.findByEmail = async (email, req) => {
-  return (await db.query(userRepository.getUserByEmail, [email], req)).rows;
+  return (await db.query(getUserByEmail, [email], req)).rows;
 };
 
 exports.findById = async (id, req) => {
-  return (await db.query(userRepository.getUserByIdQuery, [id], req)).rows;
+  return (await db.query(getUserByIdQuery, [id], req)).rows;
 };
 
 exports.addNewUser = async (values, req) => {
-  await db.query(userRepository.addUserQuery, values, req);
-};
-
-exports.addNewPetModifier = async (values, req) => {
-  await db.query(petRepository.addPetModifierQuery, values, req);
+  await db.query(addUserQuery, values, req);
 };
 
 exports.editUser = async (values, req) => {
-  await db.query(userRepository.editUserQuery, values, req);
+  await db.query(editUserQuery, values, req);
 };
 
 exports.deleteUser = async (values, req) => {
-  await db.query(userRepository.deleteUserQuery, values, req);
+  await db.query(deleteUserQuery, values, req);
 };

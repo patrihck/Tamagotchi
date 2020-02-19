@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./test-server-methods');
 const bcrypt = require('bcryptjs');
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 
 let userId;
 const user = {
@@ -19,14 +19,14 @@ describe('Edit user', () => {
   before(async () => {
     user.email = testServer.getRandomId() + user.email;
 
-    await db.addNewUser([
+    await userRepo.addNewUser([
       user.firstName,
       user.password,
       user.lastName,
       user.email
     ]);
 
-    userId = (await db.findByEmail(user.email))[0].id;
+    userId = (await userRepo.findByEmail(user.email))[0].id;
   });
 
   const editedUser = {
@@ -65,7 +65,7 @@ describe('Edit user', () => {
 });
 
 async function checkIfUserWasEdited(user) {
-  const userResult = (await db.findById(userId))[0];
+  const userResult = (await userRepo.findById(userId))[0];
 
   expect(user.email).to.equal(userResult.email);
   expect(user.lastName).to.equal(userResult.lastname);

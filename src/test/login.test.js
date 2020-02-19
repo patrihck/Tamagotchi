@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const testServer = require('./test-server-methods');
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 const bcrypt = require('bcryptjs');
 
 chai.use(chaiHttp);
@@ -20,7 +20,7 @@ describe('User login', () => {
     const salt = await bcrypt.genSaltSync();
     const hashedPassword = await bcrypt.hash(user.password, salt);
     user.email = testServer.getRandomId() + user.email;
-    await db.addNewUser([
+    await userRepo.addNewUser([
       user.firstName,
       hashedPassword,
       user.lastName,

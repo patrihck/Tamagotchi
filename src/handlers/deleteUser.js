@@ -1,15 +1,15 @@
-const db = require('../database/postgres/db-context');
+const userRepo = require('../database/repository/user-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   const userId = req.params.id;
 
   try {
-    const users = await db.findById(userId);
+    const users = await userRepo.findById(userId);
 
     if (users.length > 0) {
       const deletedAt = new Date();
-      await db.deleteUser([deletedAt, userId]);
+      await userRepo.deleteUser([deletedAt, userId]);
     } else {
       return new Boom.conflict('Unknown id');
     }

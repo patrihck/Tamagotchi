@@ -2,7 +2,7 @@ const init = require('../../server');
 const userRepository = require('../repository/user-repository');
 const petRepository = require('../repository/pet-repository');
 
-async function query(queryString, params, req) {
+exports.query = async (queryString, params, req) => {
   try {
     const response = await init.client.query(queryString, params);
     return response;
@@ -12,4 +12,4 @@ async function query(queryString, params, req) {
       req.log(['database', 'query', 'error'], err);
     }
   }
-}
+};

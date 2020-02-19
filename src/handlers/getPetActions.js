@@ -1,9 +1,9 @@
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
   try {
-    return await db.getPetActions(req);
+    return await petRepo.getPetActions(req);
   } catch (err) {
     req.log(['get', 'petActions', 'error'], err);
     return new Boom.badImplementation(err);

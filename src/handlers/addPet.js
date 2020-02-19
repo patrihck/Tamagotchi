@@ -1,5 +1,6 @@
 const Pet = require('../database/models/pet');
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
+const userRepo = require('../database/repository/user-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
@@ -7,8 +8,8 @@ module.exports = async (req, h) => {
 
   try {
     const userEmail = req.state.restricted.email;
-    const userId = (await db.findByEmail(userEmail, req))[0].id;
-    await db.addPet([userId, pet.petTypeId, pet.name], req);
+    const userId = (await userRepo.findByEmail(userEmail, req))[0].id;
+    await petRepo.addPet([userId, pet.petTypeId, pet.name], req);
 
     return h.response().code(200);
   } catch (err) {

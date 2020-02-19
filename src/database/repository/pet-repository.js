@@ -65,6 +65,10 @@ exports.addPetAction = async (values, req) => {
   await db.query(addPetActionQuery, values, req);
 };
 
+exports.addNewPetModifier = async (values, req) => {
+  await db.query(addPetModifierQuery, values, req);
+};
+
 exports.addPetModifierToPetAction = async (values, req) => {
   await db.query(addPetModifierToPetActionQuery, values, req);
 };

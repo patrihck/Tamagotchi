@@ -4,7 +4,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-json'));
 const testServer = require('./test-server-methods');
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
 
 const user = {
   email: `createPetModifier@gmail.com${testServer.getRandomId()}`,
@@ -88,7 +88,7 @@ describe('Create a pet modifier', () => {
 });
 
 async function checkIfPetModifierWasAdded(name) {
-  const petModifiers = await db.getPetModifierByName(name);
+  const petModifiers = await petRepo.getPetModifierByName(name);
   if (petModifiers.length > 0) {
     expect(petModifiers[0].name).to.be.equal(petModifier.name);
     expect(petModifiers[0].property).to.be.equal(petModifier.property);

@@ -1,5 +1,5 @@
 const PetModifier = require('../database/models/pet-modifier');
-const db = require('../database/postgres/db-context');
+const petRepo = require('../database/repository/pet-repository');
 const Boom = require('@hapi/boom');
 
 module.exports = async (req, h) => {
@@ -11,13 +11,13 @@ module.exports = async (req, h) => {
   );
 
   try {
-    await db.addNewPetModifier([
+    await petRepo.addNewPetModifier([
       petModifier.name,
       petModifier.property,
       petModifier.modifier
     ]);
     return h.response().code(200);
   } catch (err) {
-    return Boom.conflict();
+    return Boom.conflict(err);
   }
 };
