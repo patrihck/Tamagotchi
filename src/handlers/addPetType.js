@@ -19,22 +19,21 @@ module.exports = async (req, h) => {
     );
   }
 
-  console.log('PROPERTIES HERE ', properties);
-  const petType = new PetType(req.payload.name, properties);
-  const petTypes = await petRepo.getPetTypeByName(petType.name, req);
+  const newPetType = new PetType(req.payload.name, properties);
+  const petType = await petRepo.getPetTypeByName(newPetType.name, req);
 
-  if (petTypes.length === 0) {
-    await petRepo.addPetType(petType, req);
-    const petTypeId = (await petRepo.getPetTypeByName(petType.name, req))[0].id;
+  if (petType === undefined) {
+    await petRepo.addPetType(newPetType, req);
+    const petTypeId = (await petRepo.getPetTypeByName(newPetType.name, req)).id;
 
-    petType.properties.forEach(async property => {
+    newPetType.properties.forEach(async property => {
       property.petTypeId = petTypeId;
       await petRepo.addPetProperty(property, req);
     });
-  } else if (petTypes.length > 0) {
+  } else {
     return new Boom.conflict(
       'Pet type with that name already exists',
-      petType.name
+      newPetType.name
     );
   }
 

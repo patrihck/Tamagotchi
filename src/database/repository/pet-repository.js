@@ -50,7 +50,7 @@ exports.getPetModifierByName = async (name, req) => {
 };
 
 exports.getPetTypeByName = async (name, req) => {
-  return (await db.query(getPetTypeByNameQuery, [name], req)).rows;
+  return (await db.query(getPetTypeByNameQuery, [name], req)).rows[0];
 };
 
 exports.getPetActions = async req => {
