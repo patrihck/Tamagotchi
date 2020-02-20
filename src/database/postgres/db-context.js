@@ -1,6 +1,4 @@
 const init = require('../../server');
-const userRepository = require('../repository/user-repository');
-const petRepository = require('../repository/pet-repository');
 
 exports.query = async (queryString, params, req) => {
   try {

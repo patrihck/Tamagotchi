@@ -13,6 +13,8 @@ const getPetModifierByNameQuery = 'SELECT * FROM petModifiers WHERE name = $1';
 
 const getPetTypeByNameQuery = 'SELECT * FROM petTypes WHERE name = $1';
 
+const getPetTypesQuery = 'SELECT * FROM petTypes';
+
 const getPetActionsQuery = 'SELECT * FROM petActions';
 
 const addPetActionQuery =
@@ -50,6 +52,10 @@ exports.getPetModifierByName = async (name, req) => {
 
 exports.getPetTypeByName = async (name, req) => {
   return (await db.query(getPetTypeByNameQuery, [name], req)).rows[0];
+};
+
+exports.getPetTypes = async req => {
+  return (await db.query(getPetTypesQuery, null, req)).rows;
 };
 
 exports.getPetActions = async req => {

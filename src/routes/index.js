@@ -103,6 +103,17 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/petTypes',
+    options: {
+      description: 'Gets a list of pet types',
+      handler: handlers.getPetTypes,
+      auth: {
+        strategy: 'restricted'
+      }
+    }
+  },
+  {
+    method: 'GET',
     path: '/petActions',
     options: {
       description: 'gets a list of all pet actions',
